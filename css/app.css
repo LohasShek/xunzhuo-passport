@@ -21,6 +21,9 @@ textarea{min-height:64px;resize:vertical}
 .stamp.done{border-style:solid;border-color:var(--uc);color:var(--uc);background:color-mix(in srgb,var(--uc) 10%,#fff)}
 .stamp.done::after{content:"✓";position:absolute;top:6px;right:10px;font-weight:bold}
 .item{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+.item.has-extra{gap:4px;margin:0 0 16px;padding:10px;border:1px solid var(--line);border-radius:12px;background:#f3efe8}
+.item.has-extra .extra{margin-top:0}
+.item.has-extra .extra label{margin:2px 0 4px}
 .item-head{display:flex;gap:8px;align-items:center;min-width:0}
 .item-head .card-input{flex:1;width:auto;min-width:0}
 .item-tools{display:flex;flex-wrap:wrap;gap:8px}
@@ -68,8 +71,8 @@ textarea{min-height:64px;resize:vertical}
 .cbd-tri .pill{font-size:13px;max-width:100%}
 .cbd-tri .care-text,.cbd-tri .call-note{font-size:14px;line-height:1.45;color:var(--ink)}
 .cbd-tri .edge{position:absolute;z-index:2;top:46%;transform:translateY(-50%);font-size:12px;font-weight:700;color:#243044;pointer-events:none;white-space:nowrap;line-height:1}
-.cbd-tri .edge-drive{left:0}
-.cbd-tri .edge-show{right:0}
+.cbd-tri .edge-drive{left:4px}
+.cbd-tri .edge-show{right:4px}
 .pills{display:flex;flex-wrap:wrap;gap:6px}
 .pill{display:flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--line);border-radius:20px;padding:3px 10px 3px 3px;font-size:14px}
 .pill img{width:30px;height:30px;border-radius:50%;object-fit:cover;cursor:pointer}

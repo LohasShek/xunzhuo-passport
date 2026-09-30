@@ -48,7 +48,7 @@ const U = [
   ]},
   {id: '05', t: '優勢', s: 'All about Strengths 優勢卡', c: '#8a72b8', hc: '#634a93', f: [
     {h: '力爭上游：我保住的優勢卡', k: 'mine', cards: 1, max: 5, hint: '每張卡都用一個親身事例保住\n☆ 單元 06 用：我的 3 個優勢', star: 1},
-    {h: '組員送給我的卡', k: 'given', cards: 1, max: 8, hint: '備註可以寫卡名，以及是誰送的。', star: 1, extras: [
+    {h: '組員送給我的卡', k: 'given', cards: 1, max: 8, hint: '備註寫卡名，送卡人寫在下面一格。', star: 1, extras: [
       {k: 'giver', label: '送卡人', type: 'text'}
     ]},
     {h: '一句令我意外的回饋', type: 'subs', parts: [
@@ -471,7 +471,7 @@ function cardList(u, f, box) {
       if (my !== token) return;
       const it = list[i];
       const d = document.createElement('div');
-      d.className = 'item';
+      d.className = 'item' + (Array.isArray(f.extras) && f.extras.length ? ' has-extra' : '');
       const head = document.createElement('div');
       head.className = 'item-head';
       const photoUrl = !f.nophoto && it.p ? await purl(it.p) : null;
