@@ -1,49 +1,74 @@
 const U = [
-  {id: '00', t: '首頁', c: '#3d5a73'},
-  {id: '01', t: '現況與起點', s: 'PES Model・聯想圖卡', c: '#e0795b', f: [
-    {h: 'P 現況 Present', k: 'p', cards: 1, max: 1, lead: '我搶到的 1 張聯想圖卡', hint: '我在這圖看見什麼？\n這圖什麼地方最吸引我？\n這圖對我有什麼意義？\n這圖怎樣代表我現在的狀態？'},
-    {h: 'E1 理想終點 End', k: 'e', cards: 1, max: 1, note: '這圖啟發我可以作出什麼改變，讓世界變得更美好？'},
+  {id: '00', t: '首頁', c: '#3d5a73', hc: '#3d5a73'},
+  {id: '01', t: '現況與起點', s: 'PES Model・聯想圖卡', c: '#e0795b', hc: '#9e3b1e', f: [
+    {h: 'P 現況 Present', k: 'p', cards: 1, max: 1, lead: '我搶到的 1 張聯想圖卡', hint: '我在這圖看見甚麼？甚麼地方最吸引我？它對我有甚麼意義？它怎樣代表我現在的狀態？'},
+    {h: 'E1 理想終點 End', k: 'e', cards: 1, max: 1, note: '這圖啟發我可以作出甚麼改變，讓世界變得更美好？'},
     {h: 'E2 理想終點 End', k: 'e2', cards: 1, max: 1, note: '這圖令我聯想到哪些人際關係，是我最珍惜及最想改善的？'},
-    {h: 'E3 理想終點 End', k: 'e3', cards: 1, max: 1, note: '這圖令我聯想到，是什麼給了我生命的意義和召命？'},
+    {h: 'E3 理想終點 End', k: 'e3', cards: 1, max: 1, note: '這圖令我聯想到，是甚麼給了我生命的意義和召命？'},
     {h: 'S 嘗試方案 Solution', k: 's', cards: 1, max: 1},
     {h: '這圖令我想到的目標（幫我實現理想終點的改變、改善或使命）', k: 'sgoal', type: 'ta'},
     {h: '一個月內要做的 3 個行動', k: 'sacts', cards: 1, max: 3, nophoto: 1},
     {h: '預計完成日期', k: 'sdate', type: 'date'},
-    {h: '今日帶走的一句', k: 'take', type: 'ta', hint: '可以是一個發現、一句組員的話，或一節經文。'}
+    {h: '誰可以提醒我', k: 'sremind', type: 'text'},
+    {h: '今日帶走的一句', k: 'take', type: 'ta', hint: '一個發現、一句組員的話，或一節經文'}
   ]},
-  {id: '02', t: '價值觀', s: 'My Values 價值卡', c: '#d9a441', f: [
-    {h: '極速價值搜尋：我搶到的價值卡', k: 'rush', cards: 1, max: 5, hint: '最看重的按 ☆。', star: 1},
-    {h: '我的標書（價值拍賣會）', k: 'bid', cards: 1, max: 8, hint: '每行寫一張價值卡和出價，例如「家庭 30 萬」。在最看重的 3 張按 ☆。', star: 1},
-    {h: '放棄時最心痛的一張', k: 'pain', type: 'ta'},
+  {id: '02', t: '價值觀', s: 'My Values 價值卡', c: '#d9a441', hc: '#725217', f: [
+    {h: '極速價值搜尋：我搶到的價值卡', k: 'rush', cards: 1, max: 5, hint: '在最重要的一張的 ☆ 打勾\n☆ 單元 06 用：我最看重的 3 個價值', star: 1},
+    {h: '我的標書（價值拍賣會）', k: 'bid', cards: 1, max: 8, hint: '共 100 萬，每項最少 5 萬。\n☆ 單元 06 用：我最看重的 3 個價值', star: 1, extras: [
+      {k: 'price', label: '出價（萬）', type: 'number'},
+      {k: 'won', label: '得標？', type: 'toggle'}
+    ]},
+    {h: '放棄時最心痛的一張', type: 'subs', parts: [
+      {h: '卡名', k: 'painCard', type: 'text'},
+      {h: '因為', k: 'painWhy', type: 'ta'}
+    ]},
     {h: '我最終要守住的價值', k: 'keep', type: 'text'},
     {h: '今日帶走的一句', k: 'take', type: 'ta'}
   ]},
-  {id: '03', t: '職業興趣', s: '職業探索卡・RIASEC', c: '#6aa56b', f: [
-    {h: '我手上感興趣的職業卡', k: 'jobs', cards: 1, max: 6, hint: '可以在備註寫類型，例如「社工（S）」。最想帶去單元 06 的 3 張按 ☆。', star: 1},
-    {h: '我的興趣碼', k: 'code', type: 'text', hint: '最多的三個類型，例如 SAE；會後網上測試結果可再補上。'},
-    {h: '重新看一個職業', k: 'reframe', type: 'ta', hint: '我曾有偏見的職業，今天我看見它的價值。'},
+  {id: '03', t: '職業興趣', s: '職業探索卡・RIASEC', c: '#6aa56b', hc: '#3a603b', f: [
+    {h: '我手上感興趣的職業卡', k: 'jobs', cards: 1, max: 6, hint: '☆ 在最想帶去單元 06 的 3 張打勾。', star: 1, extras: [
+      {k: 'riasec', label: 'RIASEC 類型', type: 'text'}
+    ]},
+    {h: '我的職業興趣類型', type: 'subs', hint: '最多的三個類型，會後網上測試可再補上', parts: [
+      {h: '小組中', k: 'codeGroup', type: 'text'},
+      {h: '網上測試', k: 'codeWeb', type: 'text'}
+    ]},
+    {h: '重新看一個職業', type: 'subs', parts: [
+      {h: '我曾有偏見的職業', k: 'reframeJob', type: 'text'},
+      {h: '今天我看見它的價值', k: 'reframeSee', type: 'ta'}
+    ]},
     {h: '今日帶走的一句', k: 'take', type: 'ta'}
   ]},
-  {id: '04', t: '個人風格', s: 'This is Me! DISC 工具卡', c: '#4f94b8', f: [
-    {h: '我的九宮格', k: 'nine', cards: 1, max: 9, hint: '最能形容自己的 9 個詞。最代表我的 3 張按 ☆。', star: 1},
-    {h: '我較多是', k: 'disc', type: 'chips', opts: ['D', 'I', 'S', 'C'], names: ['強勢型', '影響型', '穩定型', '謹慎型']},
+  {id: '04', t: '個人風格', s: 'This is Me! DISC 工具卡', c: '#4f94b8', hc: '#2f5d75', f: [
+    {h: '我的九宮格', k: 'nine', cards: 1, max: 9, hint: '最能形容自己的 9 個詞\n☆ 單元 06 用：最代表我的 3 張卡', star: 1},
+    {h: '我較多是', k: 'disc', type: 'chips', hint: '可圈多於一個', opts: ['D', 'I', 'S', 'C'], names: ['強勢型', '影響型', '穩定型', '謹慎型']},
+    {h: '最「不像我」的一個詞', k: 'unlike', type: 'text'},
     {h: '和不同風格的人相處，我想微調的一點', k: 'adjust', type: 'ta'},
     {h: '今日帶走的一句', k: 'take', type: 'ta'}
   ]},
-  {id: '05', t: '優勢', s: 'All about Strengths 優勢卡', c: '#8a72b8', f: [
-    {h: '力爭上游：我保住的優勢卡', k: 'mine', cards: 1, max: 5, hint: '每張卡要分享一個真實的個人例子，才能保住。最想帶去單元 06 的按 ☆。', star: 1},
+  {id: '05', t: '優勢', s: 'All about Strengths 優勢卡', c: '#8a72b8', hc: '#634a93', f: [
+    {h: '力爭上游：我保住的優勢卡', k: 'mine', cards: 1, max: 5, hint: '每張卡都用一個親身事例保住\n☆ 單元 06 用：我的 3 個優勢', star: 1},
     {h: '組員送給我的卡', k: 'given', cards: 1, max: 8, hint: '備註可以寫卡名，以及是誰送的。', star: 1},
+    {h: '一句令我意外的回饋', type: 'subs', parts: [
+      {h: '誰送的', k: 'surpriseWho', type: 'text'},
+      {h: '他說', k: 'surpriseSaid', type: 'ta'}
+    ]},
     {h: '我的優勢輪廓圖（周哈里窗）', k: 'johari', type: 'johari'},
-    {h: '耗盡技能 (Burnout Skill)', k: 'drain', type: 'ta', hint: '做得好、但做完很累的事。'},
+    {h: '我做得好、但做完很累的事', sub: '耗盡技能 (Burnout Skill)', k: 'drain', type: 'ta'},
     {h: '今日帶走的一句', k: 'take', type: 'ta'}
   ]},
-  {id: '06', t: '整合與召命', s: '我的 CBD', c: '#c15a7c', f: [
+  {id: '06', t: '整合與召命', s: '我的 CBD・CBDC 召命觀', c: '#c15a7c', hc: '#983958', f: [
     {h: 'CBD', k: 'cbd', type: 'cbd'},
-    {h: '尋召命 Calling：聯想圖卡', k: 'calling', cards: 1, max: 3, note: '我感到被呼召的方向'},
+    {h: '尋召命 Calling', k: 'calling', cards: 1, max: 3, lead: '聯想圖卡（1–3 張）', note: '我想在甚麼領域或對甚麼群體作出正面的影響？'},
     {h: '展關懷 Caring：回應了這個召命，我對身邊哪些人和這個世界多了一份關顧？', k: 'field', type: 'ta', hint: 'Caring 是人回應 Calling 之後，引起的對世界的關顧。'},
-    {h: '五年後，我想在 Being 和 Doing 上達成什麼目標？', k: 'five', type: 'ta'},
-    {h: '為了實現我的 Calling，我馬上要做的三件重要事情', k: 'acts', cards: 1, max: 3, nophoto: 1},
-    {h: '六次聚會後，我想對起點的自己說', k: 'back', type: 'ta', hint: '先看看單元 01 寫的 E（理想終點）。'}
+    {h: '五年後，我想在 Being 和 Doing 上達成甚麼目標？', type: 'subs', parts: [
+      {h: 'Being', k: 'fiveBeing', type: 'ta'},
+      {h: 'Doing', k: 'fiveDoing', type: 'ta'}
+    ]},
+    {h: '為了實現我的 Calling，我馬上要做的三件重要事情', k: 'acts', cards: 1, max: 3, nophoto: 1, extras: [
+      {k: 'date', label: '日期', type: 'date'}
+    ]},
+    {h: '六次聚會後，我想對當時的自己說', k: 'back', type: 'ta', hint: '回看起點：單元 06 時翻回單元 01，看看當時寫的 E（理想終點）。'}
   ]}
 ];
 
@@ -58,6 +83,7 @@ S.done = S.done || {};
 S.review = S.review || {};
 migrateLibraryCards();
 migratePresentCard();
+migratePaperFields();
 let cur = '00';
 let db = null;
 
@@ -89,10 +115,12 @@ function migrateLibraryCards() {
           const it = list[i];
           if (!it || typeof it !== 'object' || Array.isArray(it)) continue;
           if (!('cardId' in it || 'img' in it || 'set' in it || 'num' in it)) continue;
-          const note = typeof it.n === 'string' ? it.n : '';
-          const next = {n: note};
-          if (typeof it.p === 'string' && it.p) next.p = it.p;
-          if (it.st) next.st = true;
+          const next = {...it};
+          delete next.cardId;
+          delete next.img;
+          delete next.set;
+          delete next.num;
+          if (typeof next.n !== 'string') next.n = '';
           list[i] = next;
           changed = true;
         }
@@ -108,6 +136,23 @@ function migratePresentCard() {
     const first = unit.p[0];
     unit.p = [first && typeof first === 'object' ? first : {n: ''}];
     save();
+  } catch (e) {}
+}
+function fillFrom(unitId, from, to) {
+  const unit = S.u && S.u[unitId];
+  if (!unit || typeof unit[from] !== 'string' || !unit[from]) return false;
+  if (typeof unit[to] === 'string' && unit[to]) return false;
+  unit[to] = unit[from];
+  return true;
+}
+function migratePaperFields() {
+  try {
+    let changed = false;
+    if (fillFrom('02', 'pain', 'painCard')) changed = true;
+    if (fillFrom('03', 'code', 'codeGroup')) changed = true;
+    if (fillFrom('03', 'reframe', 'reframeJob')) changed = true;
+    if (fillFrom('06', 'five', 'fiveBeing')) changed = true;
+    if (changed) save();
   } catch (e) {}
 }
 const uv = (u, k) => (S.u[u] = S.u[u] || {}, S.u[u][k]);
@@ -213,13 +258,21 @@ function dataURLToBlob(dataUrl) {
 }
 
 function navR() {
-  navEl.innerHTML = U.map(u => `<button type="button" class="${u.id === cur ? 'on' : ''}" data-u="${u.id}"><b>${u.id === '00' ? '⌂' : u.id}</b>${u.id === '00' ? '首頁' : esc(u.t.slice(0, 4))}</button>`).join('');
+  navEl.innerHTML = U.map(u => `<button type="button" class="${u.id === cur ? 'on' : ''}" data-u="${u.id}"><b>${u.id === '00' ? '⌂' : u.id}</b><span>${esc(u.t)}</span></button>`).join('');
   navEl.querySelectorAll('button').forEach(b => b.onclick = () => go(b.dataset.u));
+  const on = navEl.querySelector('button.on');
+  if (on) {
+    const left = on.offsetLeft - (navEl.clientWidth - on.offsetWidth) / 2;
+    navEl.scrollTo({left: Math.max(0, left)});
+  }
 }
 function go(id) {
   cur = id;
   const u = U.find(x => x.id === id);
   document.documentElement.style.setProperty('--c', u.c);
+  document.documentElement.style.setProperty('--hc', u.hc || u.c);
+  const theme = document.querySelector('meta[name="theme-color"]');
+  if (theme) theme.setAttribute('content', u.hc || u.c);
   ttlEl.textContent = id === '00' ? '尋卓護照' : `${id} ${u.t}`;
   navR();
   if (id === '00') home();
@@ -230,17 +283,24 @@ function go(id) {
 function home() {
   appEl.innerHTML = `<div class="card"><h2>我的護照</h2>
     <label for="nm">姓名</label><input type="text" id="nm" value="${esc(S.name)}" placeholder="你的名字">
-    <label for="gp">小組</label><input type="text" id="gp" value="${esc(S.group)}"></div>
+    <label for="gp">小組</label><input type="text" id="gp" value="${esc(S.group)}">
+    <label for="st">開始日期</label><input type="date" id="st" value="${esc(S.start)}"></div>
   <div class="card"><h2>六個單元</h2><p class="hint">完成一個單元，就會蓋上印章。</p><div class="stamps">
     ${U.slice(1).map(u => `<div class="stamp ${S.done[u.id] ? 'done' : ''}" style="--uc:${u.c}" data-u="${u.id}"><b>${u.id}</b>${esc(u.t)}</div>`).join('')}
   </div></div>
-  <div class="card"><h2>行動回顧</h2><p class="hint">每次聚會開始時，每人用一句話回顧上次的小行動。</p>
-    ${['02', '03', '04', '05', '06'].map(n => `<label>第 ${n} 次聚會：上次的小行動做了沒有？</label><div class="chips" data-r="${n}">${['做了', '部分', '未做'].map(o => `<button type="button" class="chip ${S.review[n]?.s === o ? 'on' : ''}" style="font-size:15px">${o}</button>`).join('')}</div>
-    <input type="text" data-rt="${n}" placeholder="一句發現" value="${esc(S.review[n]?.t)}" style="margin-top:6px">`).join('')}
+  <div class="card"><h2>行動回顧與同行</h2><p class="hint">每次聚會開始時，每人用一句話回顧上次的小行動。</p>
+    ${['02', '03', '04', '05', '06'].map(n => `<label>第 ${n} 次聚會</label><label>上次定的小行動</label><input type="text" data-ra="${n}" value="${esc(S.review[n]?.a)}">
+    <label>上次的小行動做了沒有？</label><div class="chips" data-r="${n}">${['做了', '部分', '未做'].map(o => `<button type="button" class="chip ${S.review[n]?.s === o ? 'on' : ''}" style="font-size:15px">${o}</button>`).join('')}</div>
+    <input type="text" data-rt="${n}" placeholder="我的發現" value="${esc(S.review[n]?.t)}" style="margin-top:6px">`).join('')}
   </div>
+  <div class="card"><h2>我們的小組協議</h2><p class="hint">單元 01 一起訂立</p><textarea id="pact">${esc(S.pact)}</textarea></div>
+  <div class="card"><h2>同行的人</h2><p class="hint">請組員在這裏留一句祝福。</p><textarea id="with">${esc(S.with)}</textarea></div>
   <div class="card"><h2>私隱</h2><p class="privacy">${esc(PRIVACY)}</p></div>`;
   document.getElementById('nm').oninput = e => { S.name = e.target.value; save(); };
   document.getElementById('gp').oninput = e => { S.group = e.target.value; save(); };
+  document.getElementById('st').oninput = e => { S.start = e.target.value; save(); };
+  document.getElementById('pact').oninput = e => { S.pact = e.target.value; save(); };
+  document.getElementById('with').oninput = e => { S.with = e.target.value; save(); };
   appEl.querySelectorAll('.stamp').forEach(s => s.onclick = () => go(s.dataset.u));
   appEl.querySelectorAll('[data-r]').forEach(g => g.querySelectorAll('button').forEach(b => b.onclick = () => {
     const n = g.dataset.r;
@@ -248,6 +308,11 @@ function home() {
     save();
     home();
   }));
+  appEl.querySelectorAll('[data-ra]').forEach(i => i.oninput = () => {
+    const n = i.dataset.ra;
+    S.review[n] = {...S.review[n], a: i.value};
+    save();
+  });
   appEl.querySelectorAll('[data-rt]').forEach(i => i.oninput = () => {
     const n = i.dataset.rt;
     S.review[n] = {...S.review[n], t: i.value};
@@ -349,6 +414,31 @@ function cardList(u, f, box) {
         head.appendChild(del);
         d.appendChild(head);
       }
+      if (Array.isArray(f.extras)) {
+        f.extras.forEach(ex => {
+          const wrap = document.createElement('div');
+          wrap.className = 'extra';
+          if (ex.type === 'toggle') {
+            const b = document.createElement('button');
+            b.type = 'button';
+            b.className = 'won-btn' + (it[ex.k] ? ' on' : '');
+            b.textContent = ex.label;
+            b.setAttribute('aria-pressed', it[ex.k] ? 'true' : 'false');
+            b.onclick = () => { it[ex.k] = !it[ex.k]; setv(u.id, f.k, list); draw(); };
+            wrap.appendChild(b);
+          } else {
+            const lab = document.createElement('label');
+            lab.textContent = ex.label;
+            const inp = document.createElement('input');
+            inp.type = ex.type === 'number' ? 'number' : ex.type === 'date' ? 'date' : 'text';
+            if (ex.type === 'number') { inp.min = '0'; inp.inputMode = 'numeric'; }
+            inp.value = it[ex.k] == null ? '' : it[ex.k];
+            inp.oninput = () => { it[ex.k] = inp.value; setv(u.id, f.k, list); };
+            wrap.append(lab, inp);
+          }
+          d.appendChild(wrap);
+        });
+      }
       box.appendChild(d);
     }
     if (my !== token) return;
@@ -380,29 +470,47 @@ function cardList(u, f, box) {
   draw();
 }
 
+function cbdKey(it) {
+  const name = String(it && it.n || '').replace(/\s+/g, ' ').trim();
+  if (name) return 'n:' + name;
+  if (it && it.p) return 'p:' + it.p;
+  return '';
+}
+function cbdTake(items) {
+  const seen = new Set();
+  const unique = [];
+  for (const it of items) {
+    const key = cbdKey(it);
+    if (!key || seen.has(key)) continue;
+    seen.add(key);
+    unique.push(it);
+  }
+  return {shown: unique.slice(0, 3), more: unique.length > 3};
+}
 let cbdToken = 0;
 function maybeRefreshCbd() { if (document.getElementById('cbd')) renderCbd(); }
 async function renderCbd() {
   const el = document.getElementById('cbd');
   if (!el) return;
   const my = ++cbdToken;
-  const bv = [...starred('02', 'rush'), ...starred('02', 'bid')];
-  const bm = starred('04', 'nine');
-  const dj = starred('03', 'jobs');
-  const ds = [...starred('05', 'mine'), ...starred('05', 'given')];
+  const bv = cbdTake([...starred('02', 'rush'), ...starred('02', 'bid')]);
+  const bm = cbdTake(starred('04', 'nine'));
+  const dj = cbdTake(starred('03', 'jobs'));
+  const ds = cbdTake([...starred('05', 'mine'), ...starred('05', 'given')]);
   const disc = (Array.isArray(uv('04', 'disc')) ? uv('04', 'disc') : []).join('');
-  const code = uv('03', 'code') || '';
+  const code = uv('03', 'codeGroup') || uv('03', 'code') || '';
   const calling = listOf('06', 'calling').filter(noted);
   const field = uv('06', 'field') || '';
   const note = uv('06', 'calling_note') || '';
+  const cap = more => more ? '<div class="src">只顯示首 3 張</div>' : '';
   const html = `
     <svg class="tri-svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
       <polygon points="50,1.2 1.2,98.8 98.8,98.8"></polygon>
     </svg>
-    <div class="zone tri-call" data-zone="calling" style="border-color:#c15a7c;background:#fbf1f5"><h3>尋召命 Calling</h3><div class="src">聯想圖卡</div><div class="pills">${await pills(calling, '尚未拍下或寫下')}</div>${note ? `<div class="src call-note">${esc(note)}</div>` : ''}</div>
+    <div class="zone tri-call" data-zone="calling" style="border-color:#c15a7c;background:#fbf1f5"><h3>尋召命 Calling</h3><div class="src">聯想圖卡（1–3 張）</div><div class="pills">${await pills(calling, '尚未拍下或寫下')}</div>${note ? `<div class="src call-note">${esc(note)}</div>` : ''}</div>
     <div class="zone tri-care" data-zone="caring" style="border-color:#6aa56b;background:#f2f8f2"><h3>展關懷 Caring</h3>${field ? `<div class="care-text">${esc(field)}</div>` : '<div class="src">在下面寫下回應召命之後的關顧</div>'}</div>
-    <div class="zone tri-being" data-zone="being" style="border-color:#d9a441;background:#fdf8ee"><h3>活真我 Being<span class="role">做人</span></h3><div class="src">價值（02）</div><div class="pills">${await pills(bv)}</div><div class="src">This is Me（04）${disc ? '・' + esc(disc) : ''}</div><div class="pills">${await pills(bm)}</div></div>
-    <div class="zone tri-doing" data-zone="doing" style="border-color:#4f94b8;background:#f1f7fb"><h3>行使命 Doing<span class="role">做事</span></h3><div class="src">職業（03）${code ? '・' + esc(code) : ''}</div><div class="pills">${await pills(dj)}</div><div class="src">優勢（05）</div><div class="pills">${await pills(ds)}</div></div>`;
+    <div class="zone tri-being" data-zone="being" style="border-color:#d9a441;background:#fdf8ee"><h3>活真我 Being<span class="role">做人</span></h3><div class="src">價值卡首 3 張（02）</div><div class="pills">${await pills(bv.shown)}</div>${cap(bv.more)}<div class="src">This is Me 卡首 3 張（04）${disc ? '・' + esc(disc) : ''}</div><div class="pills">${await pills(bm.shown)}</div>${cap(bm.more)}</div>
+    <div class="zone tri-doing" data-zone="doing" style="border-color:#4f94b8;background:#f1f7fb"><h3>行使命 Doing<span class="role">做事</span></h3><div class="src">職業探索卡首 3 張（03）${code ? '・' + esc(code) : ''}</div><div class="pills">${await pills(dj.shown)}</div>${cap(dj.more)}<div class="src">優勢卡首 3 張（05）</div><div class="pills">${await pills(ds.shown)}</div>${cap(ds.more)}</div>`;
   if (my !== cbdToken || !document.body.contains(el)) return;
   el.innerHTML = html;
   bindPillPhotos(el);
@@ -433,7 +541,7 @@ function unit(u) {
   u.f.forEach(f => {
     const c = document.createElement('div');
     c.className = 'card';
-    c.innerHTML = `<h2>${esc(f.h)}</h2>${f.lead ? `<p class="hint">${esc(f.lead)}</p>` : ''}${hintBlock(f.hint)}`;
+    c.innerHTML = `<h2>${esc(f.h)}</h2>${f.sub ? `<p class="sub">${esc(f.sub)}</p>` : ''}${f.lead ? `<p class="hint">${esc(f.lead)}</p>` : ''}${f.type === 'chips' ? '' : hintBlock(f.hint)}`;
     const box = document.createElement('div');
     c.appendChild(box);
     appEl.appendChild(c);
@@ -447,7 +555,7 @@ function unit(u) {
     } else if (f.type === 'chips') {
       const stored = uv(u.id, f.k);
       const v = Array.isArray(stored) ? stored : [];
-      box.innerHTML = `<div class="chips">${f.opts.map((o, i) => `<button type="button" class="chip ${v.includes(o) ? 'on' : ''}" data-o="${o}">${o}${f.names ? `<div style="font-size:12px;font-weight:400">${esc(f.names[i])}</div>` : ''}</button>`).join('')}</div><p class="hint" style="margin-top:6px">可選多於一個。</p>`;
+      box.innerHTML = `<div class="chips">${f.opts.map((o, i) => `<button type="button" class="chip ${v.includes(o) ? 'on' : ''}" data-o="${o}">${o}${f.names ? `<div style="font-size:12px;font-weight:400">${esc(f.names[i])}</div>` : ''}</button>`).join('')}</div><p class="hint" style="margin-top:6px">${esc(f.hint || '可選多於一個。')}</p>`;
       box.querySelectorAll('button').forEach(b => b.onclick = () => {
         const o = b.dataset.o;
         const i = v.indexOf(o);
@@ -460,9 +568,19 @@ function unit(u) {
       const v = uv(u.id, f.k) || {};
       box.innerHTML = `<p class="hint">看着相片，把卡名寫進四格。</p><div class="johari">${q.map(x => `<div class="q"><b>${esc(x[1])}${x[0] === 'unknown' ? '<span class="opt">（選做）</span>' : ''}</b><small>${esc(x[2])}</small><textarea data-q="${x[0]}">${esc(v[x[0]])}</textarea></div>`).join('')}</div>`;
       box.querySelectorAll('textarea').forEach(t => t.oninput = () => { v[t.dataset.q] = t.value; setv(u.id, f.k, v); });
+    } else if (f.type === 'subs') {
+      f.parts.forEach(part => {
+        const lab = document.createElement('label');
+        lab.textContent = part.h;
+        const t = document.createElement(part.type === 'ta' ? 'textarea' : 'input');
+        if (part.type !== 'ta') t.type = part.type === 'date' ? 'date' : 'text';
+        t.value = uv(u.id, part.k) || '';
+        t.oninput = () => setv(u.id, part.k, t.value);
+        box.append(lab, t);
+      });
     } else if (f.type === 'cbd') {
       c.querySelector('h2').textContent = '我的 CBD';
-      box.innerHTML = '<p class="hint">星號卡放在三角形的三個角，展關懷在中間。</p><div class="cbd-tri" id="cbd"></div>';
+      box.innerHTML = '<p class="hint">依楊錫鏘牧師提出的 CBDC 召命觀整合。尋召命用 1–3 張聯想圖卡。星號卡放在三角形的三個角，展關懷在中間。</p><div class="cbd-tri" id="cbd"></div>';
       renderCbd();
     }
   });
@@ -512,6 +630,7 @@ menuBtn.onclick = async () => {
         S.review = S.review || {};
         migrateLibraryCards();
         migratePresentCard();
+        migratePaperFields();
         save();
         go('00');
       } catch (e) { alert('匯入失敗，請確認檔案是尋卓護照匯出的備份。'); }

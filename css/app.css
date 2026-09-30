@@ -2,9 +2,9 @@
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC","Noto Sans CJK TC","PingFang HK","Microsoft JhengHei",sans-serif;font-size:16px;line-height:1.5}
 button,input,textarea{font-family:inherit}
-header{position:sticky;top:0;z-index:5;background:var(--c);color:#fff;padding:12px 16px;display:flex;align-items:center;gap:10px}
+header{position:sticky;top:0;z-index:5;background:var(--hc,var(--c));color:#fff;padding:12px 16px;display:flex;align-items:center;gap:10px}
 header h1{font-size:18px;margin:0;flex:1}
-header button{background:rgba(255,255,255,.18);color:#fff;border:0;border-radius:8px;padding:6px 10px;font-size:14px}
+header button{background:transparent;color:#fff;border:2px solid #fff;border-radius:8px;padding:6px 10px;font-size:14px;font-weight:700}
 main{max-width:640px;margin:0 auto;padding:14px 14px 90px}
 .card{background:#fff;border-radius:14px;padding:14px;margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
 h2{font-size:16px;margin:0 0 8px;border-left:4px solid var(--c);padding-left:8px}
@@ -13,7 +13,7 @@ label{display:block;font-size:14px;font-weight:600;margin:8px 0 4px}
 label.ask{line-height:1.45}
 .qlist{margin:0 0 8px;padding-left:1.25em;color:var(--mute);font-size:13px}
 .qlist li{margin:3px 0}
-input[type=text],textarea,input[type=date]{width:100%;border:1px solid var(--line);border-radius:10px;padding:9px 10px;font:inherit;background:#fcfcfd}
+input[type=text],textarea,input[type=date],input[type=number]{width:100%;border:1px solid var(--line);border-radius:10px;padding:9px 10px;font:inherit;background:#fcfcfd}
 textarea{min-height:64px;resize:vertical}
 .stamps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 .stamp{aspect-ratio:1;border-radius:50%;border:2px dashed #b4bcc6;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-size:13px;color:var(--mute);background:#fff;cursor:pointer;position:relative}
@@ -24,6 +24,11 @@ textarea{min-height:64px;resize:vertical}
 .item-head{display:flex;gap:8px;align-items:center;min-width:0}
 .item-head .card-input{flex:1;width:auto;min-width:0}
 .item-tools{display:flex;flex-wrap:wrap;gap:8px}
+.extra{margin-top:2px}
+.extra label{font-size:13px}
+.won-btn{border:1.5px solid var(--line);background:#fff;color:var(--ink);border-radius:10px;padding:8px 12px;font:inherit;font-weight:700}
+.won-btn.on{background:var(--c);color:#fff;border-color:var(--c)}
+.sub{margin:0 0 8px;font-size:14px;font-weight:700}
 .thumb{width:52px;height:52px;border-radius:8px;object-fit:cover;border:1px solid var(--line);flex:none;background:#efeae2;cursor:pointer}
 .ibtn{flex:none;width:40px;height:40px;border-radius:10px;border:1px solid var(--line);background:#fff;font-size:18px}
 .ibtn.txt{width:auto;padding:0 12px;font-size:15px;font-weight:600}
@@ -65,9 +70,10 @@ textarea{min-height:64px;resize:vertical}
 .pill.noimg{padding-left:10px}
 .empty{color:var(--mute);font-size:13px}
 .privacy{margin:0;font-size:14px}
-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);display:flex;padding:6px 4px calc(6px + env(safe-area-inset-bottom));z-index:6}
-nav button{flex:1;border:0;background:none;font:inherit;font-size:12px;color:var(--mute);padding:4px 0;border-radius:8px}
-nav button b{display:block;font-size:15px}
+nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);display:flex;gap:2px;padding:6px 4px calc(6px + env(safe-area-inset-bottom));z-index:6;overflow-x:auto;overscroll-behavior-x:contain}
+nav button{flex:0 0 auto;min-width:4.6rem;max-width:6.4rem;border:0;background:none;font:inherit;font-size:11px;line-height:1.25;color:var(--mute);padding:4px;border-radius:8px;white-space:normal;text-align:center}
+nav button b{display:block;font-size:13px}
+nav button span{display:block}
 nav button.on{color:var(--c);background:color-mix(in srgb,var(--c) 10%,#fff)}
 .done-toggle{margin-top:6px;width:100%}
 .photoview{position:fixed;inset:0;background:rgba(0,0,0,.88);display:none;align-items:center;justify-content:center;z-index:20}
