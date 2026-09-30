@@ -168,12 +168,18 @@ function fillFrom(unitId, from, to) {
   return true;
 }
 function emptyField(v) { return v == null || String(v).trim() === ''; }
+function stripEmptyBrackets(s) {
+  return String(s).replace(/[（(]\s*[）)]/g, '');
+}
 function takeBid(text) {
-  const wan = String(text).match(/(\d+)\s*萬/);
-  if (wan) return {num: wan[1], rest: text.slice(0, wan.index) + text.slice(wan.index + wan[0].length)};
-  const bare = String(text).match(/(?:^|\s)(\d+)\s*$/);
+  const src = String(text);
+  const paren = src.match(/[（(]\s*(\d+)\s*萬?\s*[）)]/);
+  if (paren) return {num: paren[1], rest: src.slice(0, paren.index) + src.slice(paren.index + paren[0].length)};
+  const wan = src.match(/(\d+)\s*萬/);
+  if (wan) return {num: wan[1], rest: stripEmptyBrackets(src.slice(0, wan.index) + src.slice(wan.index + wan[0].length))};
+  const bare = src.match(/(?:^|\s)(\d+)\s*$/);
   if (!bare) return null;
-  return {num: bare[1], rest: text.slice(0, bare.index)};
+  return {num: bare[1], rest: src.slice(0, bare.index)};
 }
 function takeRiasec(text) {
   const re = /[（(]\s*([RIASECriasec](?:[\s,、，/／]*[RIASECriasec])*)\s*[）)]/g;
@@ -218,36 +224,81 @@ function splitCard(it, kind) {
     const got = takeGiver(text);
     if (got && emptyField(it.giver)) { it.giver = got.name; text = got.rest; changed = true; }
   }
-  const flat = joinLines(text);
-  if (!(changed || (/\r?\n/.test(raw) && flat !== raw))) return false;
+  const flat = stripEmptyBrackets(joinLines(text)).trim();
+  if (!(changed || (/\r?\n/.test(raw) && flat !== raw) || (changed && flat !== raw))) return false;
   it.original = raw;
+  it.n = flat;
+  if (photo) it.p = photo;
+  return true;
+}
+function rebuildFromOriginal(it, kind) {
+  if (!it || typeof it !== 'object' || typeof it.original !== 'string') return false;
+  if (!/[（(]\s*[）)]/.test(String(it.n || ''))) return false;
+  const photo = it.p;
+  let text = it.original;
+  if (kind === 'bid') {
+    const bid = takeBid(text);
+    if (bid) {
+      if (emptyField(it.price)) it.price = bid.num;
+      text = bid.rest;
+    }
+  } else if (kind === 'jobs') {
+    const got = takeRiasec(text);
+    if (got) {
+      if (emptyField(it.riasec)) it.riasec = got.letters;
+      text = got.rest;
+    }
+  } else if (kind === 'given') {
+    const got = takeGiver(text);
+    if (got) {
+      if (emptyField(it.giver)) it.giver = got.name;
+      text = got.rest;
+    }
+  }
+  const flat = stripEmptyBrackets(joinLines(text)).trim();
+  if (it.n === flat) return false;
   it.n = flat;
   if (photo) it.p = photo;
   return true;
 }
 function migrateLegacyNotes() {
   try {
-    if (S.mig && S.mig.notes) return;
     const units = S.u;
+    let changed = false;
+    const kindOf = { '02': {bid: 'bid'}, '03': {jobs: 'jobs'}, '05': {given: 'given'} };
+    if (!(S.mig && S.mig.notes)) {
+      if (units && typeof units === 'object') {
+        Object.keys(units).forEach(uid => {
+          const unit = units[uid];
+          if (!unit || typeof unit !== 'object') return;
+          Object.keys(unit).forEach(key => {
+            const val = unit[key];
+            if (typeof val === 'string' && /\r?\n/.test(val) && isSingleLine(uid, key)) {
+              const next = joinLines(val);
+              if (next !== val) unit[key] = next;
+            }
+            if (!Array.isArray(val)) return;
+            const kind = ((kindOf[uid] || {})[key]) || '';
+            val.forEach(it => { splitCard(it, kind); });
+          });
+        });
+      }
+      S.mig = {...(S.mig || {}), notes: 1};
+      changed = true;
+    }
     if (units && typeof units === 'object') {
-      const kindOf = { '02': {bid: 'bid'}, '03': {jobs: 'jobs'}, '05': {given: 'given'} };
       Object.keys(units).forEach(uid => {
         const unit = units[uid];
         if (!unit || typeof unit !== 'object') return;
         Object.keys(unit).forEach(key => {
           const val = unit[key];
-          if (typeof val === 'string' && /\r?\n/.test(val) && isSingleLine(uid, key)) {
-            const next = joinLines(val);
-            if (next !== val) unit[key] = next;
-          }
           if (!Array.isArray(val)) return;
           const kind = ((kindOf[uid] || {})[key]) || '';
-          val.forEach(it => { splitCard(it, kind); });
+          val.forEach(it => { if (rebuildFromOriginal(it, kind)) changed = true; });
         });
       });
     }
-    S.mig = {...(S.mig || {}), notes: 1};
-    save();
+    if (changed) save();
   } catch (e) {}
 }
 function migrateRushStar() {
@@ -654,8 +705,7 @@ async function renderCbd() {
     <svg class="tri-svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
       <polygon points="50,1.2 1.2,98.8 98.8,98.8"></polygon>
     </svg>
-    <div class="edge edge-drive">驅動 →</div>
-    <div class="edge edge-show">← 呈現</div>
+    <div class="edges"><div class="edge edge-drive">驅動 →</div><div class="edge edge-show">← 呈現</div></div>
     <div class="zone tri-call" data-zone="calling" style="border-color:#c15a7c;background:#fbf1f5"><h3>尋召命 Calling</h3><div class="src">聯想圖卡（1–3 張）</div><div class="pills">${await pills(calling, '尚未拍下或寫下')}</div>${note ? `<div class="src call-note">${esc(note)}</div>` : ''}</div>
     <div class="zone tri-care" data-zone="caring" style="border-color:#6aa56b;background:#f2f8f2"><h3>展關懷 Caring</h3>${field ? `<div class="care-text">${esc(field)}</div>` : '<div class="src">在下面寫下回應召命之後的關顧</div>'}</div>
     <div class="zone tri-being" data-zone="being" style="border-color:#d9a441;background:#fdf8ee"><h3>活真我 Being<span class="role">做人</span></h3><div class="src">價值卡首 3 張（02）</div><div class="pills">${await pills(bv.shown)}</div>${cap(bv.more)}<div class="src">This is Me! 卡首 3 張（04）${disc ? '・' + esc(disc) : ''}</div><div class="pills">${await pills(bm.shown)}</div>${cap(bm.more)}</div>

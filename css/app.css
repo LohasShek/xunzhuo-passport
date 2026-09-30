@@ -56,7 +56,7 @@ textarea{min-height:64px;resize:vertical}
 .cbd .zone,.cbd-tri .zone{border-radius:14px;padding:10px;margin-bottom:10px;border:2px solid}
 .zone h3{margin:0 0 6px;font-size:15px}
 .zone .src{font-size:12px;color:var(--mute);margin:6px 0 4px}
-.cbd-tri{position:relative;display:grid;grid-template-columns:1fr 1fr;grid-template-areas:"call call" "care care" "being doing";grid-template-rows:auto minmax(120px,auto) auto;column-gap:10px;row-gap:8px;align-items:center;padding:28px 2px 16px}
+.cbd-tri{position:relative;display:grid;grid-template-columns:1fr 1fr;grid-template-areas:"call call" "edges edges" "care care" "being doing";grid-template-rows:auto auto minmax(120px,auto) auto;column-gap:10px;row-gap:8px;align-items:center;padding:28px 2px 16px}
 .cbd-tri .tri-svg{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
 .cbd-tri .tri-svg polygon{fill:rgba(193,90,124,.1);stroke:#c15a7c;stroke-width:4;stroke-linejoin:round;vector-effect:non-scaling-stroke}
 .cbd-tri .zone{position:relative;z-index:1;margin:0;min-width:0}
@@ -69,9 +69,8 @@ textarea{min-height:64px;resize:vertical}
 .cbd-tri .src{font-size:11px}
 .cbd-tri .pill{font-size:13px;max-width:100%}
 .cbd-tri .care-text,.cbd-tri .call-note{font-size:14px;line-height:1.45;color:var(--ink)}
-.cbd-tri .edge{position:absolute;z-index:2;top:46%;transform:translateY(-50%);font-size:12px;font-weight:700;color:#243044;pointer-events:none;white-space:nowrap;line-height:1}
-.cbd-tri .edge-drive{left:4px}
-.cbd-tri .edge-show{right:4px}
+.cbd-tri .edges{grid-area:edges;display:flex;justify-content:space-between;align-items:center;gap:8px;position:relative;z-index:2;padding:0 4px;min-width:0}
+.cbd-tri .edge{position:static;font-size:12px;font-weight:700;color:#243044;white-space:nowrap;line-height:1}
 .pills{display:flex;flex-wrap:wrap;gap:6px}
 .pill{display:flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--line);border-radius:20px;padding:3px 10px 3px 3px;font-size:14px}
 .pill img{width:30px;height:30px;border-radius:50%;object-fit:cover;cursor:pointer}
@@ -102,5 +101,8 @@ nav button.on{color:var(--hc,#1f2933);background:color-mix(in srgb,var(--hc,#3d5
   .card{box-shadow:none;border:1px solid #ddd;break-inside:avoid}
   .cbd-tri,.cbd-tri .zone{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   .cbd-tri .edge{color:#000}
+  .ibtn.on,.chip.on{background:#fff!important;color:#000!important;border:3px solid #000!important;font-weight:700!important}
+  .ibtn.on{width:auto!important;padding:0 8px!important}
+  .ibtn.on::before,.chip.on::before{content:"✓ "}
   .won-btn.on{background:#fff!important;color:#000!important;border:2px solid #000!important}
 }
