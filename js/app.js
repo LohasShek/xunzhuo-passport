@@ -300,7 +300,7 @@ function cardList(u, f, box) {
       inp.className = 'card-input';
       inp.placeholder = f.nophoto ? '行動' : '卡名';
       inp.value = it.n || '';
-      inp.oninput = () => { it.n = inp.value; setv(u.id, f.k, list); };
+      inp.oninput = () => { it.n = inp.value; setv(u.id, f.k, list); maybeRefreshCbd(); };
       d.appendChild(inp);
       if (!f.nophoto) {
         const camBtn = document.createElement('button');
@@ -322,7 +322,7 @@ function cardList(u, f, box) {
         star.title = '帶去單元 06';
         star.textContent = '☆';
         star.setAttribute('aria-pressed', it.st ? 'true' : 'false');
-        star.onclick = () => { it.st = !it.st; setv(u.id, f.k, list); draw(); };
+        star.onclick = () => { it.st = !it.st; setv(u.id, f.k, list); draw(); maybeRefreshCbd(); };
         d.appendChild(star);
       }
       const del = document.createElement('button');
@@ -336,6 +336,7 @@ function cardList(u, f, box) {
         if (!list.length) list.push({n: ''});
         setv(u.id, f.k, list);
         draw();
+        maybeRefreshCbd();
       };
       d.appendChild(del);
       box.appendChild(d);
@@ -359,6 +360,7 @@ function cardList(u, f, box) {
         if (!list.length) list.push({n: ''});
         setv(u.id, f.k, list);
         draw();
+        maybeRefreshCbd();
       });
       actions.appendChild(pick);
     }
@@ -376,7 +378,7 @@ function cardList(u, f, box) {
       l.textContent = f.note;
       const t = document.createElement('textarea');
       t.value = uv(u.id, f.k + '_note') || '';
-      t.oninput = () => setv(u.id, f.k + '_note', t.value);
+      t.oninput = () => { setv(u.id, f.k + '_note', t.value); maybeRefreshCbd(); };
       box.append(l, t);
     }
   };
@@ -487,6 +489,31 @@ function openPicker(setId, remain, taken, onDone) {
   search.focus();
 }
 
+let cbdToken = 0;
+function maybeRefreshCbd() { if (document.getElementById('cbd')) renderCbd(); }
+async function renderCbd() {
+  const el = document.getElementById('cbd');
+  if (!el) return;
+  const my = ++cbdToken;
+  const bv = starred('02', 'bid');
+  const bm = starred('04', 'nine');
+  const dj = starred('03', 'jobs');
+  const ds = [...starred('05', 'mine'), ...starred('05', 'given')];
+  const disc = (Array.isArray(uv('04', 'disc')) ? uv('04', 'disc') : []).join('');
+  const code = uv('03', 'code') || '';
+  const calling = listOf('06', 'calling').filter(x => x.n);
+  const field = uv('06', 'field') || '';
+  const note = uv('06', 'calling_note') || '';
+  const html = `
+    <div class="zone" data-zone="being" style="border-color:#d9a441;background:#fdf8ee"><h3>活真我 Being</h3><div class="src">價值（02）</div><div class="pills">${await pills(bv)}</div><div class="src">This is Me（04）${disc ? '・' + esc(disc) : ''}</div><div class="pills">${await pills(bm)}</div></div>
+    <div class="zone" data-zone="doing" style="border-color:#4f94b8;background:#f1f7fb"><h3>行使命 Doing</h3><div class="src">職業（03）${code ? '・' + esc(code) : ''}</div><div class="pills">${await pills(dj)}</div><div class="src">優勢（05）</div><div class="pills">${await pills(ds)}</div></div>
+    <div class="zone" data-zone="calling" style="border-color:#c15a7c;background:#fbf1f5"><h3>尋召命 Calling</h3><div class="src">在下面加入 1–3 張聯想圖卡</div><div class="pills">${await pills(calling, '尚未選擇聯想圖卡')}</div>${note ? `<div class="src" style="color:var(--ink)">${esc(note)}</div>` : ''}</div>
+    <div class="zone" data-zone="caring" style="border-color:#6aa56b;background:#f2f8f2"><h3>展關懷 Caring</h3>${field ? `<div class="care-text" style="font-size:14px">${esc(field)}</div>` : '<div class="src">在下面寫下想關心和貢獻的群體或人</div>'}</div>`;
+  if (my !== cbdToken || !document.body.contains(el)) return;
+  el.innerHTML = html;
+  bindPillPhotos(el);
+}
+
 async function pills(items, empty) {
   if (!items.length) return `<span class="empty">${esc(empty || '未有 ☆ 的卡')}</span>`;
   let h = '';
@@ -515,7 +542,7 @@ function unit(u) {
       const t = document.createElement(f.type === 'ta' ? 'textarea' : 'input');
       if (f.type !== 'ta') t.type = f.type;
       t.value = uv(u.id, f.k) || '';
-      t.oninput = () => setv(u.id, f.k, t.value);
+      t.oninput = () => { setv(u.id, f.k, t.value); maybeRefreshCbd(); };
       box.appendChild(t);
     } else if (f.type === 'chips') {
       const stored = uv(u.id, f.k);
@@ -553,25 +580,7 @@ function unit(u) {
     } else if (f.type === 'cbd') {
       c.querySelector('h2').textContent = '我的 CBDC';
       box.innerHTML = '<p class="hint">自動帶入單元 02–05 按了 ☆ 的卡。</p><div class="cbd" id="cbd"></div>';
-      (async () => {
-        const bv = starred('02', 'bid');
-        const bm = starred('04', 'nine');
-        const dj = starred('03', 'jobs');
-        const ds = [...starred('05', 'mine'), ...starred('05', 'given')];
-        const disc = (Array.isArray(uv('04', 'disc')) ? uv('04', 'disc') : []).join('');
-        const code = uv('03', 'code') || '';
-        const calling = listOf('06', 'calling').filter(x => x.n);
-        const field = uv('06', 'field') || '';
-        const note = uv('06', 'calling_note') || '';
-        const el = document.getElementById('cbd');
-        if (!el) return;
-        el.innerHTML = `
-          <div class="zone" data-zone="being" style="border-color:#d9a441;background:#fdf8ee"><h3>活真我 Being</h3><div class="src">價值（02）</div><div class="pills">${await pills(bv)}</div><div class="src">This is Me（04）${disc ? '・' + esc(disc) : ''}</div><div class="pills">${await pills(bm)}</div></div>
-          <div class="zone" data-zone="doing" style="border-color:#4f94b8;background:#f1f7fb"><h3>行使命 Doing</h3><div class="src">職業（03）${code ? '・' + esc(code) : ''}</div><div class="pills">${await pills(dj)}</div><div class="src">優勢（05）</div><div class="pills">${await pills(ds)}</div></div>
-          <div class="zone" data-zone="calling" style="border-color:#c15a7c;background:#fbf1f5"><h3>尋召命 Calling</h3><div class="src">在下面加入 1–3 張聯想圖卡</div><div class="pills">${await pills(calling, '尚未選擇聯想圖卡')}</div>${note ? `<div class="src" style="color:var(--ink)">${esc(note)}</div>` : ''}</div>
-          <div class="zone" data-zone="caring" style="border-color:#6aa56b;background:#f2f8f2"><h3>展關懷 Caring</h3>${field ? `<div class="care-text" style="font-size:14px">${esc(field)}</div>` : '<div class="src">在下面寫下想關心和貢獻的群體或人</div>'}</div>`;
-        bindPillPhotos(el);
-      })();
+      renderCbd();
     }
   });
   const d = document.createElement('div');
