@@ -1,0 +1,506 @@
+[
+  {
+    "id": "disc-001",
+    "number": 1,
+    "name": "風格卡 01",
+    "set": "disc",
+    "image": "images/disc/001.svg"
+  },
+  {
+    "id": "disc-002",
+    "number": 2,
+    "name": "風格卡 02",
+    "set": "disc",
+    "image": "images/disc/002.svg"
+  },
+  {
+    "id": "disc-003",
+    "number": 3,
+    "name": "風格卡 03",
+    "set": "disc",
+    "image": "images/disc/003.svg"
+  },
+  {
+    "id": "disc-004",
+    "number": 4,
+    "name": "風格卡 04",
+    "set": "disc",
+    "image": "images/disc/004.svg"
+  },
+  {
+    "id": "disc-005",
+    "number": 5,
+    "name": "風格卡 05",
+    "set": "disc",
+    "image": "images/disc/005.svg"
+  },
+  {
+    "id": "disc-006",
+    "number": 6,
+    "name": "風格卡 06",
+    "set": "disc",
+    "image": "images/disc/006.svg"
+  },
+  {
+    "id": "disc-007",
+    "number": 7,
+    "name": "風格卡 07",
+    "set": "disc",
+    "image": "images/disc/007.svg"
+  },
+  {
+    "id": "disc-008",
+    "number": 8,
+    "name": "風格卡 08",
+    "set": "disc",
+    "image": "images/disc/008.svg"
+  },
+  {
+    "id": "disc-009",
+    "number": 9,
+    "name": "風格卡 09",
+    "set": "disc",
+    "image": "images/disc/009.svg"
+  },
+  {
+    "id": "disc-010",
+    "number": 10,
+    "name": "風格卡 10",
+    "set": "disc",
+    "image": "images/disc/010.svg"
+  },
+  {
+    "id": "disc-011",
+    "number": 11,
+    "name": "風格卡 11",
+    "set": "disc",
+    "image": "images/disc/011.svg"
+  },
+  {
+    "id": "disc-012",
+    "number": 12,
+    "name": "風格卡 12",
+    "set": "disc",
+    "image": "images/disc/012.svg"
+  },
+  {
+    "id": "disc-013",
+    "number": 13,
+    "name": "風格卡 13",
+    "set": "disc",
+    "image": "images/disc/013.svg"
+  },
+  {
+    "id": "disc-014",
+    "number": 14,
+    "name": "風格卡 14",
+    "set": "disc",
+    "image": "images/disc/014.svg"
+  },
+  {
+    "id": "disc-015",
+    "number": 15,
+    "name": "風格卡 15",
+    "set": "disc",
+    "image": "images/disc/015.svg"
+  },
+  {
+    "id": "disc-016",
+    "number": 16,
+    "name": "風格卡 16",
+    "set": "disc",
+    "image": "images/disc/016.svg"
+  },
+  {
+    "id": "disc-017",
+    "number": 17,
+    "name": "風格卡 17",
+    "set": "disc",
+    "image": "images/disc/017.svg"
+  },
+  {
+    "id": "disc-018",
+    "number": 18,
+    "name": "風格卡 18",
+    "set": "disc",
+    "image": "images/disc/018.svg"
+  },
+  {
+    "id": "disc-019",
+    "number": 19,
+    "name": "風格卡 19",
+    "set": "disc",
+    "image": "images/disc/019.svg"
+  },
+  {
+    "id": "disc-020",
+    "number": 20,
+    "name": "風格卡 20",
+    "set": "disc",
+    "image": "images/disc/020.svg"
+  },
+  {
+    "id": "disc-021",
+    "number": 21,
+    "name": "風格卡 21",
+    "set": "disc",
+    "image": "images/disc/021.svg"
+  },
+  {
+    "id": "disc-022",
+    "number": 22,
+    "name": "風格卡 22",
+    "set": "disc",
+    "image": "images/disc/022.svg"
+  },
+  {
+    "id": "disc-023",
+    "number": 23,
+    "name": "風格卡 23",
+    "set": "disc",
+    "image": "images/disc/023.svg"
+  },
+  {
+    "id": "disc-024",
+    "number": 24,
+    "name": "風格卡 24",
+    "set": "disc",
+    "image": "images/disc/024.svg"
+  },
+  {
+    "id": "disc-025",
+    "number": 25,
+    "name": "風格卡 25",
+    "set": "disc",
+    "image": "images/disc/025.svg"
+  },
+  {
+    "id": "disc-026",
+    "number": 26,
+    "name": "風格卡 26",
+    "set": "disc",
+    "image": "images/disc/026.svg"
+  },
+  {
+    "id": "disc-027",
+    "number": 27,
+    "name": "風格卡 27",
+    "set": "disc",
+    "image": "images/disc/027.svg"
+  },
+  {
+    "id": "disc-028",
+    "number": 28,
+    "name": "風格卡 28",
+    "set": "disc",
+    "image": "images/disc/028.svg"
+  },
+  {
+    "id": "disc-029",
+    "number": 29,
+    "name": "風格卡 29",
+    "set": "disc",
+    "image": "images/disc/029.svg"
+  },
+  {
+    "id": "disc-030",
+    "number": 30,
+    "name": "風格卡 30",
+    "set": "disc",
+    "image": "images/disc/030.svg"
+  },
+  {
+    "id": "disc-031",
+    "number": 31,
+    "name": "風格卡 31",
+    "set": "disc",
+    "image": "images/disc/031.svg"
+  },
+  {
+    "id": "disc-032",
+    "number": 32,
+    "name": "風格卡 32",
+    "set": "disc",
+    "image": "images/disc/032.svg"
+  },
+  {
+    "id": "disc-033",
+    "number": 33,
+    "name": "風格卡 33",
+    "set": "disc",
+    "image": "images/disc/033.svg"
+  },
+  {
+    "id": "disc-034",
+    "number": 34,
+    "name": "風格卡 34",
+    "set": "disc",
+    "image": "images/disc/034.svg"
+  },
+  {
+    "id": "disc-035",
+    "number": 35,
+    "name": "風格卡 35",
+    "set": "disc",
+    "image": "images/disc/035.svg"
+  },
+  {
+    "id": "disc-036",
+    "number": 36,
+    "name": "風格卡 36",
+    "set": "disc",
+    "image": "images/disc/036.svg"
+  },
+  {
+    "id": "disc-037",
+    "number": 37,
+    "name": "風格卡 37",
+    "set": "disc",
+    "image": "images/disc/037.svg"
+  },
+  {
+    "id": "disc-038",
+    "number": 38,
+    "name": "風格卡 38",
+    "set": "disc",
+    "image": "images/disc/038.svg"
+  },
+  {
+    "id": "disc-039",
+    "number": 39,
+    "name": "風格卡 39",
+    "set": "disc",
+    "image": "images/disc/039.svg"
+  },
+  {
+    "id": "disc-040",
+    "number": 40,
+    "name": "風格卡 40",
+    "set": "disc",
+    "image": "images/disc/040.svg"
+  },
+  {
+    "id": "disc-041",
+    "number": 41,
+    "name": "風格卡 41",
+    "set": "disc",
+    "image": "images/disc/041.svg"
+  },
+  {
+    "id": "disc-042",
+    "number": 42,
+    "name": "風格卡 42",
+    "set": "disc",
+    "image": "images/disc/042.svg"
+  },
+  {
+    "id": "disc-043",
+    "number": 43,
+    "name": "風格卡 43",
+    "set": "disc",
+    "image": "images/disc/043.svg"
+  },
+  {
+    "id": "disc-044",
+    "number": 44,
+    "name": "風格卡 44",
+    "set": "disc",
+    "image": "images/disc/044.svg"
+  },
+  {
+    "id": "disc-045",
+    "number": 45,
+    "name": "風格卡 45",
+    "set": "disc",
+    "image": "images/disc/045.svg"
+  },
+  {
+    "id": "disc-046",
+    "number": 46,
+    "name": "風格卡 46",
+    "set": "disc",
+    "image": "images/disc/046.svg"
+  },
+  {
+    "id": "disc-047",
+    "number": 47,
+    "name": "風格卡 47",
+    "set": "disc",
+    "image": "images/disc/047.svg"
+  },
+  {
+    "id": "disc-048",
+    "number": 48,
+    "name": "風格卡 48",
+    "set": "disc",
+    "image": "images/disc/048.svg"
+  },
+  {
+    "id": "disc-049",
+    "number": 49,
+    "name": "風格卡 49",
+    "set": "disc",
+    "image": "images/disc/049.svg"
+  },
+  {
+    "id": "disc-050",
+    "number": 50,
+    "name": "風格卡 50",
+    "set": "disc",
+    "image": "images/disc/050.svg"
+  },
+  {
+    "id": "disc-051",
+    "number": 51,
+    "name": "風格卡 51",
+    "set": "disc",
+    "image": "images/disc/051.svg"
+  },
+  {
+    "id": "disc-052",
+    "number": 52,
+    "name": "風格卡 52",
+    "set": "disc",
+    "image": "images/disc/052.svg"
+  },
+  {
+    "id": "disc-053",
+    "number": 53,
+    "name": "風格卡 53",
+    "set": "disc",
+    "image": "images/disc/053.svg"
+  },
+  {
+    "id": "disc-054",
+    "number": 54,
+    "name": "風格卡 54",
+    "set": "disc",
+    "image": "images/disc/054.svg"
+  },
+  {
+    "id": "disc-055",
+    "number": 55,
+    "name": "風格卡 55",
+    "set": "disc",
+    "image": "images/disc/055.svg"
+  },
+  {
+    "id": "disc-056",
+    "number": 56,
+    "name": "風格卡 56",
+    "set": "disc",
+    "image": "images/disc/056.svg"
+  },
+  {
+    "id": "disc-057",
+    "number": 57,
+    "name": "風格卡 57",
+    "set": "disc",
+    "image": "images/disc/057.svg"
+  },
+  {
+    "id": "disc-058",
+    "number": 58,
+    "name": "風格卡 58",
+    "set": "disc",
+    "image": "images/disc/058.svg"
+  },
+  {
+    "id": "disc-059",
+    "number": 59,
+    "name": "風格卡 59",
+    "set": "disc",
+    "image": "images/disc/059.svg"
+  },
+  {
+    "id": "disc-060",
+    "number": 60,
+    "name": "風格卡 60",
+    "set": "disc",
+    "image": "images/disc/060.svg"
+  },
+  {
+    "id": "disc-061",
+    "number": 61,
+    "name": "風格卡 61",
+    "set": "disc",
+    "image": "images/disc/061.svg"
+  },
+  {
+    "id": "disc-062",
+    "number": 62,
+    "name": "風格卡 62",
+    "set": "disc",
+    "image": "images/disc/062.svg"
+  },
+  {
+    "id": "disc-063",
+    "number": 63,
+    "name": "風格卡 63",
+    "set": "disc",
+    "image": "images/disc/063.svg"
+  },
+  {
+    "id": "disc-064",
+    "number": 64,
+    "name": "風格卡 64",
+    "set": "disc",
+    "image": "images/disc/064.svg"
+  },
+  {
+    "id": "disc-065",
+    "number": 65,
+    "name": "風格卡 65",
+    "set": "disc",
+    "image": "images/disc/065.svg"
+  },
+  {
+    "id": "disc-066",
+    "number": 66,
+    "name": "風格卡 66",
+    "set": "disc",
+    "image": "images/disc/066.svg"
+  },
+  {
+    "id": "disc-067",
+    "number": 67,
+    "name": "風格卡 67",
+    "set": "disc",
+    "image": "images/disc/067.svg"
+  },
+  {
+    "id": "disc-068",
+    "number": 68,
+    "name": "風格卡 68",
+    "set": "disc",
+    "image": "images/disc/068.svg"
+  },
+  {
+    "id": "disc-069",
+    "number": 69,
+    "name": "風格卡 69",
+    "set": "disc",
+    "image": "images/disc/069.svg"
+  },
+  {
+    "id": "disc-070",
+    "number": 70,
+    "name": "風格卡 70",
+    "set": "disc",
+    "image": "images/disc/070.svg"
+  },
+  {
+    "id": "disc-071",
+    "number": 71,
+    "name": "風格卡 71",
+    "set": "disc",
+    "image": "images/disc/071.svg"
+  },
+  {
+    "id": "disc-072",
+    "number": 72,
+    "name": "風格卡 72",
+    "set": "disc",
+    "image": "images/disc/072.svg"
+  }
+]

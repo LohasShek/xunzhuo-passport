@@ -1,0 +1,632 @@
+[
+  {
+    "id": "strengths-001",
+    "number": 1,
+    "name": "優勢卡 01",
+    "set": "strengths",
+    "image": "images/strengths/001.svg"
+  },
+  {
+    "id": "strengths-002",
+    "number": 2,
+    "name": "優勢卡 02",
+    "set": "strengths",
+    "image": "images/strengths/002.svg"
+  },
+  {
+    "id": "strengths-003",
+    "number": 3,
+    "name": "優勢卡 03",
+    "set": "strengths",
+    "image": "images/strengths/003.svg"
+  },
+  {
+    "id": "strengths-004",
+    "number": 4,
+    "name": "優勢卡 04",
+    "set": "strengths",
+    "image": "images/strengths/004.svg"
+  },
+  {
+    "id": "strengths-005",
+    "number": 5,
+    "name": "優勢卡 05",
+    "set": "strengths",
+    "image": "images/strengths/005.svg"
+  },
+  {
+    "id": "strengths-006",
+    "number": 6,
+    "name": "優勢卡 06",
+    "set": "strengths",
+    "image": "images/strengths/006.svg"
+  },
+  {
+    "id": "strengths-007",
+    "number": 7,
+    "name": "優勢卡 07",
+    "set": "strengths",
+    "image": "images/strengths/007.svg"
+  },
+  {
+    "id": "strengths-008",
+    "number": 8,
+    "name": "優勢卡 08",
+    "set": "strengths",
+    "image": "images/strengths/008.svg"
+  },
+  {
+    "id": "strengths-009",
+    "number": 9,
+    "name": "優勢卡 09",
+    "set": "strengths",
+    "image": "images/strengths/009.svg"
+  },
+  {
+    "id": "strengths-010",
+    "number": 10,
+    "name": "優勢卡 10",
+    "set": "strengths",
+    "image": "images/strengths/010.svg"
+  },
+  {
+    "id": "strengths-011",
+    "number": 11,
+    "name": "優勢卡 11",
+    "set": "strengths",
+    "image": "images/strengths/011.svg"
+  },
+  {
+    "id": "strengths-012",
+    "number": 12,
+    "name": "優勢卡 12",
+    "set": "strengths",
+    "image": "images/strengths/012.svg"
+  },
+  {
+    "id": "strengths-013",
+    "number": 13,
+    "name": "優勢卡 13",
+    "set": "strengths",
+    "image": "images/strengths/013.svg"
+  },
+  {
+    "id": "strengths-014",
+    "number": 14,
+    "name": "優勢卡 14",
+    "set": "strengths",
+    "image": "images/strengths/014.svg"
+  },
+  {
+    "id": "strengths-015",
+    "number": 15,
+    "name": "優勢卡 15",
+    "set": "strengths",
+    "image": "images/strengths/015.svg"
+  },
+  {
+    "id": "strengths-016",
+    "number": 16,
+    "name": "優勢卡 16",
+    "set": "strengths",
+    "image": "images/strengths/016.svg"
+  },
+  {
+    "id": "strengths-017",
+    "number": 17,
+    "name": "優勢卡 17",
+    "set": "strengths",
+    "image": "images/strengths/017.svg"
+  },
+  {
+    "id": "strengths-018",
+    "number": 18,
+    "name": "優勢卡 18",
+    "set": "strengths",
+    "image": "images/strengths/018.svg"
+  },
+  {
+    "id": "strengths-019",
+    "number": 19,
+    "name": "優勢卡 19",
+    "set": "strengths",
+    "image": "images/strengths/019.svg"
+  },
+  {
+    "id": "strengths-020",
+    "number": 20,
+    "name": "優勢卡 20",
+    "set": "strengths",
+    "image": "images/strengths/020.svg"
+  },
+  {
+    "id": "strengths-021",
+    "number": 21,
+    "name": "優勢卡 21",
+    "set": "strengths",
+    "image": "images/strengths/021.svg"
+  },
+  {
+    "id": "strengths-022",
+    "number": 22,
+    "name": "優勢卡 22",
+    "set": "strengths",
+    "image": "images/strengths/022.svg"
+  },
+  {
+    "id": "strengths-023",
+    "number": 23,
+    "name": "優勢卡 23",
+    "set": "strengths",
+    "image": "images/strengths/023.svg"
+  },
+  {
+    "id": "strengths-024",
+    "number": 24,
+    "name": "優勢卡 24",
+    "set": "strengths",
+    "image": "images/strengths/024.svg"
+  },
+  {
+    "id": "strengths-025",
+    "number": 25,
+    "name": "優勢卡 25",
+    "set": "strengths",
+    "image": "images/strengths/025.svg"
+  },
+  {
+    "id": "strengths-026",
+    "number": 26,
+    "name": "優勢卡 26",
+    "set": "strengths",
+    "image": "images/strengths/026.svg"
+  },
+  {
+    "id": "strengths-027",
+    "number": 27,
+    "name": "優勢卡 27",
+    "set": "strengths",
+    "image": "images/strengths/027.svg"
+  },
+  {
+    "id": "strengths-028",
+    "number": 28,
+    "name": "優勢卡 28",
+    "set": "strengths",
+    "image": "images/strengths/028.svg"
+  },
+  {
+    "id": "strengths-029",
+    "number": 29,
+    "name": "優勢卡 29",
+    "set": "strengths",
+    "image": "images/strengths/029.svg"
+  },
+  {
+    "id": "strengths-030",
+    "number": 30,
+    "name": "優勢卡 30",
+    "set": "strengths",
+    "image": "images/strengths/030.svg"
+  },
+  {
+    "id": "strengths-031",
+    "number": 31,
+    "name": "優勢卡 31",
+    "set": "strengths",
+    "image": "images/strengths/031.svg"
+  },
+  {
+    "id": "strengths-032",
+    "number": 32,
+    "name": "優勢卡 32",
+    "set": "strengths",
+    "image": "images/strengths/032.svg"
+  },
+  {
+    "id": "strengths-033",
+    "number": 33,
+    "name": "優勢卡 33",
+    "set": "strengths",
+    "image": "images/strengths/033.svg"
+  },
+  {
+    "id": "strengths-034",
+    "number": 34,
+    "name": "優勢卡 34",
+    "set": "strengths",
+    "image": "images/strengths/034.svg"
+  },
+  {
+    "id": "strengths-035",
+    "number": 35,
+    "name": "優勢卡 35",
+    "set": "strengths",
+    "image": "images/strengths/035.svg"
+  },
+  {
+    "id": "strengths-036",
+    "number": 36,
+    "name": "優勢卡 36",
+    "set": "strengths",
+    "image": "images/strengths/036.svg"
+  },
+  {
+    "id": "strengths-037",
+    "number": 37,
+    "name": "優勢卡 37",
+    "set": "strengths",
+    "image": "images/strengths/037.svg"
+  },
+  {
+    "id": "strengths-038",
+    "number": 38,
+    "name": "優勢卡 38",
+    "set": "strengths",
+    "image": "images/strengths/038.svg"
+  },
+  {
+    "id": "strengths-039",
+    "number": 39,
+    "name": "優勢卡 39",
+    "set": "strengths",
+    "image": "images/strengths/039.svg"
+  },
+  {
+    "id": "strengths-040",
+    "number": 40,
+    "name": "優勢卡 40",
+    "set": "strengths",
+    "image": "images/strengths/040.svg"
+  },
+  {
+    "id": "strengths-041",
+    "number": 41,
+    "name": "優勢卡 41",
+    "set": "strengths",
+    "image": "images/strengths/041.svg"
+  },
+  {
+    "id": "strengths-042",
+    "number": 42,
+    "name": "優勢卡 42",
+    "set": "strengths",
+    "image": "images/strengths/042.svg"
+  },
+  {
+    "id": "strengths-043",
+    "number": 43,
+    "name": "優勢卡 43",
+    "set": "strengths",
+    "image": "images/strengths/043.svg"
+  },
+  {
+    "id": "strengths-044",
+    "number": 44,
+    "name": "優勢卡 44",
+    "set": "strengths",
+    "image": "images/strengths/044.svg"
+  },
+  {
+    "id": "strengths-045",
+    "number": 45,
+    "name": "優勢卡 45",
+    "set": "strengths",
+    "image": "images/strengths/045.svg"
+  },
+  {
+    "id": "strengths-046",
+    "number": 46,
+    "name": "優勢卡 46",
+    "set": "strengths",
+    "image": "images/strengths/046.svg"
+  },
+  {
+    "id": "strengths-047",
+    "number": 47,
+    "name": "優勢卡 47",
+    "set": "strengths",
+    "image": "images/strengths/047.svg"
+  },
+  {
+    "id": "strengths-048",
+    "number": 48,
+    "name": "優勢卡 48",
+    "set": "strengths",
+    "image": "images/strengths/048.svg"
+  },
+  {
+    "id": "strengths-049",
+    "number": 49,
+    "name": "優勢卡 49",
+    "set": "strengths",
+    "image": "images/strengths/049.svg"
+  },
+  {
+    "id": "strengths-050",
+    "number": 50,
+    "name": "優勢卡 50",
+    "set": "strengths",
+    "image": "images/strengths/050.svg"
+  },
+  {
+    "id": "strengths-051",
+    "number": 51,
+    "name": "優勢卡 51",
+    "set": "strengths",
+    "image": "images/strengths/051.svg"
+  },
+  {
+    "id": "strengths-052",
+    "number": 52,
+    "name": "優勢卡 52",
+    "set": "strengths",
+    "image": "images/strengths/052.svg"
+  },
+  {
+    "id": "strengths-053",
+    "number": 53,
+    "name": "優勢卡 53",
+    "set": "strengths",
+    "image": "images/strengths/053.svg"
+  },
+  {
+    "id": "strengths-054",
+    "number": 54,
+    "name": "優勢卡 54",
+    "set": "strengths",
+    "image": "images/strengths/054.svg"
+  },
+  {
+    "id": "strengths-055",
+    "number": 55,
+    "name": "優勢卡 55",
+    "set": "strengths",
+    "image": "images/strengths/055.svg"
+  },
+  {
+    "id": "strengths-056",
+    "number": 56,
+    "name": "優勢卡 56",
+    "set": "strengths",
+    "image": "images/strengths/056.svg"
+  },
+  {
+    "id": "strengths-057",
+    "number": 57,
+    "name": "優勢卡 57",
+    "set": "strengths",
+    "image": "images/strengths/057.svg"
+  },
+  {
+    "id": "strengths-058",
+    "number": 58,
+    "name": "優勢卡 58",
+    "set": "strengths",
+    "image": "images/strengths/058.svg"
+  },
+  {
+    "id": "strengths-059",
+    "number": 59,
+    "name": "優勢卡 59",
+    "set": "strengths",
+    "image": "images/strengths/059.svg"
+  },
+  {
+    "id": "strengths-060",
+    "number": 60,
+    "name": "優勢卡 60",
+    "set": "strengths",
+    "image": "images/strengths/060.svg"
+  },
+  {
+    "id": "strengths-061",
+    "number": 61,
+    "name": "優勢卡 61",
+    "set": "strengths",
+    "image": "images/strengths/061.svg"
+  },
+  {
+    "id": "strengths-062",
+    "number": 62,
+    "name": "優勢卡 62",
+    "set": "strengths",
+    "image": "images/strengths/062.svg"
+  },
+  {
+    "id": "strengths-063",
+    "number": 63,
+    "name": "優勢卡 63",
+    "set": "strengths",
+    "image": "images/strengths/063.svg"
+  },
+  {
+    "id": "strengths-064",
+    "number": 64,
+    "name": "優勢卡 64",
+    "set": "strengths",
+    "image": "images/strengths/064.svg"
+  },
+  {
+    "id": "strengths-065",
+    "number": 65,
+    "name": "優勢卡 65",
+    "set": "strengths",
+    "image": "images/strengths/065.svg"
+  },
+  {
+    "id": "strengths-066",
+    "number": 66,
+    "name": "優勢卡 66",
+    "set": "strengths",
+    "image": "images/strengths/066.svg"
+  },
+  {
+    "id": "strengths-067",
+    "number": 67,
+    "name": "優勢卡 67",
+    "set": "strengths",
+    "image": "images/strengths/067.svg"
+  },
+  {
+    "id": "strengths-068",
+    "number": 68,
+    "name": "優勢卡 68",
+    "set": "strengths",
+    "image": "images/strengths/068.svg"
+  },
+  {
+    "id": "strengths-069",
+    "number": 69,
+    "name": "優勢卡 69",
+    "set": "strengths",
+    "image": "images/strengths/069.svg"
+  },
+  {
+    "id": "strengths-070",
+    "number": 70,
+    "name": "優勢卡 70",
+    "set": "strengths",
+    "image": "images/strengths/070.svg"
+  },
+  {
+    "id": "strengths-071",
+    "number": 71,
+    "name": "優勢卡 71",
+    "set": "strengths",
+    "image": "images/strengths/071.svg"
+  },
+  {
+    "id": "strengths-072",
+    "number": 72,
+    "name": "優勢卡 72",
+    "set": "strengths",
+    "image": "images/strengths/072.svg"
+  },
+  {
+    "id": "strengths-073",
+    "number": 73,
+    "name": "優勢卡 73",
+    "set": "strengths",
+    "image": "images/strengths/073.svg"
+  },
+  {
+    "id": "strengths-074",
+    "number": 74,
+    "name": "優勢卡 74",
+    "set": "strengths",
+    "image": "images/strengths/074.svg"
+  },
+  {
+    "id": "strengths-075",
+    "number": 75,
+    "name": "優勢卡 75",
+    "set": "strengths",
+    "image": "images/strengths/075.svg"
+  },
+  {
+    "id": "strengths-076",
+    "number": 76,
+    "name": "優勢卡 76",
+    "set": "strengths",
+    "image": "images/strengths/076.svg"
+  },
+  {
+    "id": "strengths-077",
+    "number": 77,
+    "name": "優勢卡 77",
+    "set": "strengths",
+    "image": "images/strengths/077.svg"
+  },
+  {
+    "id": "strengths-078",
+    "number": 78,
+    "name": "優勢卡 78",
+    "set": "strengths",
+    "image": "images/strengths/078.svg"
+  },
+  {
+    "id": "strengths-079",
+    "number": 79,
+    "name": "優勢卡 79",
+    "set": "strengths",
+    "image": "images/strengths/079.svg"
+  },
+  {
+    "id": "strengths-080",
+    "number": 80,
+    "name": "優勢卡 80",
+    "set": "strengths",
+    "image": "images/strengths/080.svg"
+  },
+  {
+    "id": "strengths-081",
+    "number": 81,
+    "name": "優勢卡 81",
+    "set": "strengths",
+    "image": "images/strengths/081.svg"
+  },
+  {
+    "id": "strengths-082",
+    "number": 82,
+    "name": "優勢卡 82",
+    "set": "strengths",
+    "image": "images/strengths/082.svg"
+  },
+  {
+    "id": "strengths-083",
+    "number": 83,
+    "name": "優勢卡 83",
+    "set": "strengths",
+    "image": "images/strengths/083.svg"
+  },
+  {
+    "id": "strengths-084",
+    "number": 84,
+    "name": "優勢卡 84",
+    "set": "strengths",
+    "image": "images/strengths/084.svg"
+  },
+  {
+    "id": "strengths-085",
+    "number": 85,
+    "name": "優勢卡 85",
+    "set": "strengths",
+    "image": "images/strengths/085.svg"
+  },
+  {
+    "id": "strengths-086",
+    "number": 86,
+    "name": "優勢卡 86",
+    "set": "strengths",
+    "image": "images/strengths/086.svg"
+  },
+  {
+    "id": "strengths-087",
+    "number": 87,
+    "name": "優勢卡 87",
+    "set": "strengths",
+    "image": "images/strengths/087.svg"
+  },
+  {
+    "id": "strengths-088",
+    "number": 88,
+    "name": "優勢卡 88",
+    "set": "strengths",
+    "image": "images/strengths/088.svg"
+  },
+  {
+    "id": "strengths-089",
+    "number": 89,
+    "name": "優勢卡 89",
+    "set": "strengths",
+    "image": "images/strengths/089.svg"
+  },
+  {
+    "id": "strengths-090",
+    "number": 90,
+    "name": "優勢卡 90",
+    "set": "strengths",
+    "image": "images/strengths/090.svg"
+  }
+]

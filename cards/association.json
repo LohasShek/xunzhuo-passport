@@ -1,0 +1,674 @@
+[
+  {
+    "id": "association-001",
+    "number": 1,
+    "name": "聯想圖卡 01",
+    "set": "association",
+    "image": "images/association/001.svg"
+  },
+  {
+    "id": "association-002",
+    "number": 2,
+    "name": "聯想圖卡 02",
+    "set": "association",
+    "image": "images/association/002.svg"
+  },
+  {
+    "id": "association-003",
+    "number": 3,
+    "name": "聯想圖卡 03",
+    "set": "association",
+    "image": "images/association/003.svg"
+  },
+  {
+    "id": "association-004",
+    "number": 4,
+    "name": "聯想圖卡 04",
+    "set": "association",
+    "image": "images/association/004.svg"
+  },
+  {
+    "id": "association-005",
+    "number": 5,
+    "name": "聯想圖卡 05",
+    "set": "association",
+    "image": "images/association/005.svg"
+  },
+  {
+    "id": "association-006",
+    "number": 6,
+    "name": "聯想圖卡 06",
+    "set": "association",
+    "image": "images/association/006.svg"
+  },
+  {
+    "id": "association-007",
+    "number": 7,
+    "name": "聯想圖卡 07",
+    "set": "association",
+    "image": "images/association/007.svg"
+  },
+  {
+    "id": "association-008",
+    "number": 8,
+    "name": "聯想圖卡 08",
+    "set": "association",
+    "image": "images/association/008.svg"
+  },
+  {
+    "id": "association-009",
+    "number": 9,
+    "name": "聯想圖卡 09",
+    "set": "association",
+    "image": "images/association/009.svg"
+  },
+  {
+    "id": "association-010",
+    "number": 10,
+    "name": "聯想圖卡 10",
+    "set": "association",
+    "image": "images/association/010.svg"
+  },
+  {
+    "id": "association-011",
+    "number": 11,
+    "name": "聯想圖卡 11",
+    "set": "association",
+    "image": "images/association/011.svg"
+  },
+  {
+    "id": "association-012",
+    "number": 12,
+    "name": "聯想圖卡 12",
+    "set": "association",
+    "image": "images/association/012.svg"
+  },
+  {
+    "id": "association-013",
+    "number": 13,
+    "name": "聯想圖卡 13",
+    "set": "association",
+    "image": "images/association/013.svg"
+  },
+  {
+    "id": "association-014",
+    "number": 14,
+    "name": "聯想圖卡 14",
+    "set": "association",
+    "image": "images/association/014.svg"
+  },
+  {
+    "id": "association-015",
+    "number": 15,
+    "name": "聯想圖卡 15",
+    "set": "association",
+    "image": "images/association/015.svg"
+  },
+  {
+    "id": "association-016",
+    "number": 16,
+    "name": "聯想圖卡 16",
+    "set": "association",
+    "image": "images/association/016.svg"
+  },
+  {
+    "id": "association-017",
+    "number": 17,
+    "name": "聯想圖卡 17",
+    "set": "association",
+    "image": "images/association/017.svg"
+  },
+  {
+    "id": "association-018",
+    "number": 18,
+    "name": "聯想圖卡 18",
+    "set": "association",
+    "image": "images/association/018.svg"
+  },
+  {
+    "id": "association-019",
+    "number": 19,
+    "name": "聯想圖卡 19",
+    "set": "association",
+    "image": "images/association/019.svg"
+  },
+  {
+    "id": "association-020",
+    "number": 20,
+    "name": "聯想圖卡 20",
+    "set": "association",
+    "image": "images/association/020.svg"
+  },
+  {
+    "id": "association-021",
+    "number": 21,
+    "name": "聯想圖卡 21",
+    "set": "association",
+    "image": "images/association/021.svg"
+  },
+  {
+    "id": "association-022",
+    "number": 22,
+    "name": "聯想圖卡 22",
+    "set": "association",
+    "image": "images/association/022.svg"
+  },
+  {
+    "id": "association-023",
+    "number": 23,
+    "name": "聯想圖卡 23",
+    "set": "association",
+    "image": "images/association/023.svg"
+  },
+  {
+    "id": "association-024",
+    "number": 24,
+    "name": "聯想圖卡 24",
+    "set": "association",
+    "image": "images/association/024.svg"
+  },
+  {
+    "id": "association-025",
+    "number": 25,
+    "name": "聯想圖卡 25",
+    "set": "association",
+    "image": "images/association/025.svg"
+  },
+  {
+    "id": "association-026",
+    "number": 26,
+    "name": "聯想圖卡 26",
+    "set": "association",
+    "image": "images/association/026.svg"
+  },
+  {
+    "id": "association-027",
+    "number": 27,
+    "name": "聯想圖卡 27",
+    "set": "association",
+    "image": "images/association/027.svg"
+  },
+  {
+    "id": "association-028",
+    "number": 28,
+    "name": "聯想圖卡 28",
+    "set": "association",
+    "image": "images/association/028.svg"
+  },
+  {
+    "id": "association-029",
+    "number": 29,
+    "name": "聯想圖卡 29",
+    "set": "association",
+    "image": "images/association/029.svg"
+  },
+  {
+    "id": "association-030",
+    "number": 30,
+    "name": "聯想圖卡 30",
+    "set": "association",
+    "image": "images/association/030.svg"
+  },
+  {
+    "id": "association-031",
+    "number": 31,
+    "name": "聯想圖卡 31",
+    "set": "association",
+    "image": "images/association/031.svg"
+  },
+  {
+    "id": "association-032",
+    "number": 32,
+    "name": "聯想圖卡 32",
+    "set": "association",
+    "image": "images/association/032.svg"
+  },
+  {
+    "id": "association-033",
+    "number": 33,
+    "name": "聯想圖卡 33",
+    "set": "association",
+    "image": "images/association/033.svg"
+  },
+  {
+    "id": "association-034",
+    "number": 34,
+    "name": "聯想圖卡 34",
+    "set": "association",
+    "image": "images/association/034.svg"
+  },
+  {
+    "id": "association-035",
+    "number": 35,
+    "name": "聯想圖卡 35",
+    "set": "association",
+    "image": "images/association/035.svg"
+  },
+  {
+    "id": "association-036",
+    "number": 36,
+    "name": "聯想圖卡 36",
+    "set": "association",
+    "image": "images/association/036.svg"
+  },
+  {
+    "id": "association-037",
+    "number": 37,
+    "name": "聯想圖卡 37",
+    "set": "association",
+    "image": "images/association/037.svg"
+  },
+  {
+    "id": "association-038",
+    "number": 38,
+    "name": "聯想圖卡 38",
+    "set": "association",
+    "image": "images/association/038.svg"
+  },
+  {
+    "id": "association-039",
+    "number": 39,
+    "name": "聯想圖卡 39",
+    "set": "association",
+    "image": "images/association/039.svg"
+  },
+  {
+    "id": "association-040",
+    "number": 40,
+    "name": "聯想圖卡 40",
+    "set": "association",
+    "image": "images/association/040.svg"
+  },
+  {
+    "id": "association-041",
+    "number": 41,
+    "name": "聯想圖卡 41",
+    "set": "association",
+    "image": "images/association/041.svg"
+  },
+  {
+    "id": "association-042",
+    "number": 42,
+    "name": "聯想圖卡 42",
+    "set": "association",
+    "image": "images/association/042.svg"
+  },
+  {
+    "id": "association-043",
+    "number": 43,
+    "name": "聯想圖卡 43",
+    "set": "association",
+    "image": "images/association/043.svg"
+  },
+  {
+    "id": "association-044",
+    "number": 44,
+    "name": "聯想圖卡 44",
+    "set": "association",
+    "image": "images/association/044.svg"
+  },
+  {
+    "id": "association-045",
+    "number": 45,
+    "name": "聯想圖卡 45",
+    "set": "association",
+    "image": "images/association/045.svg"
+  },
+  {
+    "id": "association-046",
+    "number": 46,
+    "name": "聯想圖卡 46",
+    "set": "association",
+    "image": "images/association/046.svg"
+  },
+  {
+    "id": "association-047",
+    "number": 47,
+    "name": "聯想圖卡 47",
+    "set": "association",
+    "image": "images/association/047.svg"
+  },
+  {
+    "id": "association-048",
+    "number": 48,
+    "name": "聯想圖卡 48",
+    "set": "association",
+    "image": "images/association/048.svg"
+  },
+  {
+    "id": "association-049",
+    "number": 49,
+    "name": "聯想圖卡 49",
+    "set": "association",
+    "image": "images/association/049.svg"
+  },
+  {
+    "id": "association-050",
+    "number": 50,
+    "name": "聯想圖卡 50",
+    "set": "association",
+    "image": "images/association/050.svg"
+  },
+  {
+    "id": "association-051",
+    "number": 51,
+    "name": "聯想圖卡 51",
+    "set": "association",
+    "image": "images/association/051.svg"
+  },
+  {
+    "id": "association-052",
+    "number": 52,
+    "name": "聯想圖卡 52",
+    "set": "association",
+    "image": "images/association/052.svg"
+  },
+  {
+    "id": "association-053",
+    "number": 53,
+    "name": "聯想圖卡 53",
+    "set": "association",
+    "image": "images/association/053.svg"
+  },
+  {
+    "id": "association-054",
+    "number": 54,
+    "name": "聯想圖卡 54",
+    "set": "association",
+    "image": "images/association/054.svg"
+  },
+  {
+    "id": "association-055",
+    "number": 55,
+    "name": "聯想圖卡 55",
+    "set": "association",
+    "image": "images/association/055.svg"
+  },
+  {
+    "id": "association-056",
+    "number": 56,
+    "name": "聯想圖卡 56",
+    "set": "association",
+    "image": "images/association/056.svg"
+  },
+  {
+    "id": "association-057",
+    "number": 57,
+    "name": "聯想圖卡 57",
+    "set": "association",
+    "image": "images/association/057.svg"
+  },
+  {
+    "id": "association-058",
+    "number": 58,
+    "name": "聯想圖卡 58",
+    "set": "association",
+    "image": "images/association/058.svg"
+  },
+  {
+    "id": "association-059",
+    "number": 59,
+    "name": "聯想圖卡 59",
+    "set": "association",
+    "image": "images/association/059.svg"
+  },
+  {
+    "id": "association-060",
+    "number": 60,
+    "name": "聯想圖卡 60",
+    "set": "association",
+    "image": "images/association/060.svg"
+  },
+  {
+    "id": "association-061",
+    "number": 61,
+    "name": "聯想圖卡 61",
+    "set": "association",
+    "image": "images/association/061.svg"
+  },
+  {
+    "id": "association-062",
+    "number": 62,
+    "name": "聯想圖卡 62",
+    "set": "association",
+    "image": "images/association/062.svg"
+  },
+  {
+    "id": "association-063",
+    "number": 63,
+    "name": "聯想圖卡 63",
+    "set": "association",
+    "image": "images/association/063.svg"
+  },
+  {
+    "id": "association-064",
+    "number": 64,
+    "name": "聯想圖卡 64",
+    "set": "association",
+    "image": "images/association/064.svg"
+  },
+  {
+    "id": "association-065",
+    "number": 65,
+    "name": "聯想圖卡 65",
+    "set": "association",
+    "image": "images/association/065.svg"
+  },
+  {
+    "id": "association-066",
+    "number": 66,
+    "name": "聯想圖卡 66",
+    "set": "association",
+    "image": "images/association/066.svg"
+  },
+  {
+    "id": "association-067",
+    "number": 67,
+    "name": "聯想圖卡 67",
+    "set": "association",
+    "image": "images/association/067.svg"
+  },
+  {
+    "id": "association-068",
+    "number": 68,
+    "name": "聯想圖卡 68",
+    "set": "association",
+    "image": "images/association/068.svg"
+  },
+  {
+    "id": "association-069",
+    "number": 69,
+    "name": "聯想圖卡 69",
+    "set": "association",
+    "image": "images/association/069.svg"
+  },
+  {
+    "id": "association-070",
+    "number": 70,
+    "name": "聯想圖卡 70",
+    "set": "association",
+    "image": "images/association/070.svg"
+  },
+  {
+    "id": "association-071",
+    "number": 71,
+    "name": "聯想圖卡 71",
+    "set": "association",
+    "image": "images/association/071.svg"
+  },
+  {
+    "id": "association-072",
+    "number": 72,
+    "name": "聯想圖卡 72",
+    "set": "association",
+    "image": "images/association/072.svg"
+  },
+  {
+    "id": "association-073",
+    "number": 73,
+    "name": "聯想圖卡 73",
+    "set": "association",
+    "image": "images/association/073.svg"
+  },
+  {
+    "id": "association-074",
+    "number": 74,
+    "name": "聯想圖卡 74",
+    "set": "association",
+    "image": "images/association/074.svg"
+  },
+  {
+    "id": "association-075",
+    "number": 75,
+    "name": "聯想圖卡 75",
+    "set": "association",
+    "image": "images/association/075.svg"
+  },
+  {
+    "id": "association-076",
+    "number": 76,
+    "name": "聯想圖卡 76",
+    "set": "association",
+    "image": "images/association/076.svg"
+  },
+  {
+    "id": "association-077",
+    "number": 77,
+    "name": "聯想圖卡 77",
+    "set": "association",
+    "image": "images/association/077.svg"
+  },
+  {
+    "id": "association-078",
+    "number": 78,
+    "name": "聯想圖卡 78",
+    "set": "association",
+    "image": "images/association/078.svg"
+  },
+  {
+    "id": "association-079",
+    "number": 79,
+    "name": "聯想圖卡 79",
+    "set": "association",
+    "image": "images/association/079.svg"
+  },
+  {
+    "id": "association-080",
+    "number": 80,
+    "name": "聯想圖卡 80",
+    "set": "association",
+    "image": "images/association/080.svg"
+  },
+  {
+    "id": "association-081",
+    "number": 81,
+    "name": "聯想圖卡 81",
+    "set": "association",
+    "image": "images/association/081.svg"
+  },
+  {
+    "id": "association-082",
+    "number": 82,
+    "name": "聯想圖卡 82",
+    "set": "association",
+    "image": "images/association/082.svg"
+  },
+  {
+    "id": "association-083",
+    "number": 83,
+    "name": "聯想圖卡 83",
+    "set": "association",
+    "image": "images/association/083.svg"
+  },
+  {
+    "id": "association-084",
+    "number": 84,
+    "name": "聯想圖卡 84",
+    "set": "association",
+    "image": "images/association/084.svg"
+  },
+  {
+    "id": "association-085",
+    "number": 85,
+    "name": "聯想圖卡 85",
+    "set": "association",
+    "image": "images/association/085.svg"
+  },
+  {
+    "id": "association-086",
+    "number": 86,
+    "name": "聯想圖卡 86",
+    "set": "association",
+    "image": "images/association/086.svg"
+  },
+  {
+    "id": "association-087",
+    "number": 87,
+    "name": "聯想圖卡 87",
+    "set": "association",
+    "image": "images/association/087.svg"
+  },
+  {
+    "id": "association-088",
+    "number": 88,
+    "name": "聯想圖卡 88",
+    "set": "association",
+    "image": "images/association/088.svg"
+  },
+  {
+    "id": "association-089",
+    "number": 89,
+    "name": "聯想圖卡 89",
+    "set": "association",
+    "image": "images/association/089.svg"
+  },
+  {
+    "id": "association-090",
+    "number": 90,
+    "name": "聯想圖卡 90",
+    "set": "association",
+    "image": "images/association/090.svg"
+  },
+  {
+    "id": "association-091",
+    "number": 91,
+    "name": "聯想圖卡 91",
+    "set": "association",
+    "image": "images/association/091.svg"
+  },
+  {
+    "id": "association-092",
+    "number": 92,
+    "name": "聯想圖卡 92",
+    "set": "association",
+    "image": "images/association/092.svg"
+  },
+  {
+    "id": "association-093",
+    "number": 93,
+    "name": "聯想圖卡 93",
+    "set": "association",
+    "image": "images/association/093.svg"
+  },
+  {
+    "id": "association-094",
+    "number": 94,
+    "name": "聯想圖卡 94",
+    "set": "association",
+    "image": "images/association/094.svg"
+  },
+  {
+    "id": "association-095",
+    "number": 95,
+    "name": "聯想圖卡 95",
+    "set": "association",
+    "image": "images/association/095.svg"
+  },
+  {
+    "id": "association-096",
+    "number": 96,
+    "name": "聯想圖卡 96",
+    "set": "association",
+    "image": "images/association/096.svg"
+  }
+]
