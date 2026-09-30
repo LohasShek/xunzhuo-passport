@@ -584,9 +584,9 @@ function unit(u) {
         b.classList.toggle('on');
       });
     } else if (f.type === 'johari') {
-      const q = [['open', '公開區', '我選了，也有人送給我'], ['blind', '盲點區', '我沒選，但有人送給我'], ['hidden', '隱藏區', '我選了，但沒有人送'], ['unknown', '未知區・待發展（選做）', '還未看見、想發展的']];
+      const q = [['open', '公開區', '我選了，也有人送給我'], ['blind', '盲點區', '我沒選，但有人送給我'], ['hidden', '隱藏區', '我選了，但沒有人送'], ['unknown', '未知區・待發展', '還未看見、想發展的']];
       const v = uv(u.id, f.k) || {};
-      box.innerHTML = `<div class="johari">${q.map(x => `<div class="q"><b>${x[1]}</b><small>${x[2]}</small><textarea data-q="${x[0]}">${esc(v[x[0]])}</textarea></div>`).join('')}</div>
+      box.innerHTML = `<div class="johari">${q.map(x => `<div class="q"><b>${esc(x[1])}${x[0] === 'unknown' ? '<span class="opt">（選做）</span>' : ''}</b><small>${esc(x[2])}</small><textarea data-q="${x[0]}">${esc(v[x[0]])}</textarea></div>`).join('')}</div>
         <button type="button" class="btn ghost johari-fill" style="margin-top:8px">按上面的卡自動分區</button>`;
       box.querySelectorAll('textarea').forEach(t => t.oninput = () => { v[t.dataset.q] = t.value; setv(u.id, f.k, v); });
       box.querySelector('.johari-fill').onclick = () => {
