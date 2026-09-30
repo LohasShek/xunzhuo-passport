@@ -1,6 +1,6 @@
 /* 尋卓護照服務工作者。只快取本網站自己的程式檔，不連線到第三方。
    不載入、也不快取已移除的卡庫（cards/ 與 images/）。 */
-const CACHE = 'xunzhuo-passport-v11';
+const CACHE = 'xunzhuo-passport-v12';
 
 function isRetiredLibrary(url) {
   return url.pathname.includes('/cards/') || url.pathname.includes('/images/');

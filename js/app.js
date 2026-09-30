@@ -173,18 +173,19 @@ function stripEmptyBrackets(s) {
 }
 function takeBid(text) {
   const src = String(text);
-  const re = /(?:^|[^\d.．／/])(\d+)\s*萬/g;
-  let num = null;
-  let m;
-  while ((m = re.exec(src))) {
-    const after = src.slice(m.index + m[0].length);
-    if (/^\s*[\d０-９千百十.．]/.test(after)) return null;
-    if (num == null) num = m[1];
-  }
-  if (num != null) return num;
-  const paren = src.match(/[（(]\s*(\d+)\s*[）)]/);
-  if (paren) return paren[1];
-  return null;
+  const runs = [...src.matchAll(/[0-9０-９]+/g)];
+  if (runs.length !== 1) return null;
+  const raw = runs[0][0];
+  const at = runs[0].index;
+  const prev = at > 0 ? src.charAt(at - 1) : '';
+  if (/[-+－＋−–—~～.．，,、/／]/.test(prev)) return null;
+  const rest = src.slice(at + raw.length);
+  if (/^[.．，,、/／]/.test(rest)) return null;
+  const unit = rest.match(/^\s*(萬元|萬)/);
+  if (!unit) return null;
+  const numerals = /[零〇一二三四五六七八九十百千萬兩]/;
+  if (numerals.test(src.slice(0, at)) || numerals.test(rest.slice(unit[0].length))) return null;
+  return raw.replace(/[０-９]/g, ch => String.fromCharCode(ch.charCodeAt(0) - 0xFF10 + 0x30));
 }
 function takeRiasec(text) {
   const re = /[（(]\s*([RIASECriasec](?:[\s,、，/／]*[RIASECriasec])*)\s*[）)]/g;
