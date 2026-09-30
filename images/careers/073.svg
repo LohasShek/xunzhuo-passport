@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="240" height="360" viewBox="0 0 240 360" role="img" aria-label="職業卡 73">
-<rect width="240" height="360" rx="18" fill="#6aa56b"/>
-<rect x="14" y="14" width="212" height="332" rx="12" fill="none" stroke="#ffffff" stroke-opacity="0.9" stroke-width="3"/>
-<text x="120" y="58" text-anchor="middle" fill="#ffffff" font-family="PingFang HK, Microsoft JhengHei, Noto Sans CJK TC, sans-serif" font-size="22">職業卡</text>
-<text x="120" y="188" text-anchor="middle" dominant-baseline="middle" fill="#ffffff" font-family="PingFang HK, Microsoft JhengHei, sans-serif" font-size="72" font-weight="700">73</text>
-<text x="120" y="318" text-anchor="middle" fill="#ffffff" fill-opacity="0.92" font-family="PingFang HK, Microsoft JhengHei, sans-serif" font-size="16">佔位圖卡</text>
-</svg>
