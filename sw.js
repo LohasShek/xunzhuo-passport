@@ -1,7 +1,7 @@
 /* 尋卓護照服務工作者。只快取本網站自己的檔案，不連線到第三方。
    圖卡 manifest 與圖片在有網路時會更新快取，離線時用上次成功下載的副本。
    更換 cards/ 與 images/ 不需要修改這個檔案。 */
-const CACHE = 'xunzhuo-passport-v2';
+const CACHE = 'xunzhuo-passport-v3';
 
 function isLibrary(url) {
   return url.pathname.includes('/cards/') || url.pathname.includes('/images/');

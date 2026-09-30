@@ -1,7 +1,7 @@
 const U = [
   {id: '00', t: '首頁', c: '#3d5a73'},
   {id: '01', t: '現況與起點', s: 'PES Model・聯想圖卡', c: '#e0795b', f: [
-    {h: 'P 現況 Present', k: 'p', cards: 1, max: 3, set: 'association', hint: '我在這圖看見什麼？\n這圖什麼地方最吸引我？\n這圖對我有什麼意義？\n這圖怎樣代表我現在的狀態？'},
+    {h: 'P 現況 Present', k: 'p', cards: 1, max: 1, set: 'association', lead: '我搶到的 1 張聯想圖卡', hint: '我在這圖看見什麼？\n這圖什麼地方最吸引我？\n這圖對我有什麼意義？\n這圖怎樣代表我現在的狀態？'},
     {h: 'E1 理想終點 End', k: 'e', cards: 1, max: 1, set: 'association', note: '這圖啟發我可以作出什麼改變，讓世界變得更美好？'},
     {h: 'E2 理想終點 End', k: 'e2', cards: 1, max: 1, set: 'association', note: '這圖令我聯想到哪些人際關係，是我最珍惜及最想改善的？'},
     {h: 'E3 理想終點 End', k: 'e3', cards: 1, max: 1, set: 'association', note: '這圖令我聯想到，是什麼給了我生命的意義和召命？'},
@@ -70,6 +70,7 @@ try { S = JSON.parse(localStorage.getItem(K) || '{}'); } catch (e) { S = {}; }
 S.u = S.u || {};
 S.done = S.done || {};
 S.review = S.review || {};
+migratePresentCard();
 let cur = '00';
 const LIB = {};
 let libError = null;
@@ -86,6 +87,15 @@ const menuBtn = document.getElementById('menuBtn');
 function save() {
   try { localStorage.setItem(K, JSON.stringify(S)); }
   catch (e) { alert('這部手機的儲存空間不足，請先按「備份」匯出，再刪除一些相片。'); }
+}
+function migratePresentCard() {
+  try {
+    const unit = S.u && S.u['01'];
+    if (!unit || !Array.isArray(unit.p) || unit.p.length <= 1) return;
+    const first = unit.p[0];
+    unit.p = [first && typeof first === 'object' ? first : {n: ''}];
+    save();
+  } catch (e) {}
 }
 const uv = (u, k) => (S.u[u] = S.u[u] || {}, S.u[u][k]);
 const setv = (u, k, v) => { S.u[u] = S.u[u] || {}; S.u[u][k] = v; save(); };
@@ -454,7 +464,9 @@ function openPicker(setId, remain, taken, onDone) {
       grid.innerHTML = '<p class="empty">圖卡庫暫時讀不到。可關閉這個畫面，改用手動輸入。</p>';
       return;
     }
-    hint.textContent = `共 ${cards.length} 張。可搜尋卡號或卡名，可多選，尚可加入 ${remain} 張。`;
+    hint.textContent = remain === 1
+      ? `共 ${cards.length} 張。可搜尋卡號或卡名，只可選 1 張。`
+      : `共 ${cards.length} 張。可搜尋卡號或卡名，可多選，尚可加入 ${remain} 張。`;
     if (!matched.length) {
       grid.innerHTML = '<p class="empty">找不到符合的圖卡。可改用手動輸入。</p>';
       return;
@@ -549,7 +561,7 @@ function unit(u) {
   u.f.forEach(f => {
     const c = document.createElement('div');
     c.className = 'card';
-    c.innerHTML = `<h2>${esc(f.h)}</h2>${hintBlock(f.hint)}`;
+    c.innerHTML = `<h2>${esc(f.h)}</h2>${f.lead ? `<p class="hint">${esc(f.lead)}</p>` : ''}${hintBlock(f.hint)}`;
     const box = document.createElement('div');
     c.appendChild(box);
     appEl.appendChild(c);
@@ -643,6 +655,7 @@ menuBtn.onclick = async () => {
         S.u = S.u || {};
         S.done = S.done || {};
         S.review = S.review || {};
+        migratePresentCard();
         save();
         go('00');
       } catch (e) { alert('匯入失敗，請確認檔案是尋卓護照匯出的備份。'); }
