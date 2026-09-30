@@ -55,7 +55,7 @@ python3 -m http.server 8080
 1. 把這個變更合併到 `main`。
 2. 打開 GitHub 儲存庫的 **Settings → Pages**。
 3. 在 **Build and deployment** 的 **Source** 選擇 **GitHub Actions**（不要選 Deploy from a branch）。
-4. 若工作流程沒有權限：到 **Settings → Actions → General → Workflow permissions**，允許 Actions 有足夠權限部署 Pages（需要 `pages: write` 與 `id-token: write`，工作流程檔裡已經聲明）。
+4. 若工作流程沒有權限：到 **Settings → Actions → General → Workflow permissions**，允許 Actions 有足夠權限部署 Pages（需要 `pages: write` 與 `id-token: write`，工作流程檔裏已經聲明）。
 5. 打開 **Actions**，確認名為 **Deploy GitHub Pages** 的工作流程成功。
 6. 網站網址：<https://lohasshek.github.io/xunzhuo-passport/>
 
