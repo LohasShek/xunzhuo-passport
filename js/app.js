@@ -13,8 +13,8 @@ const U = [
     {h: '今日帶走的一句', k: 'take', type: 'ta', hint: '一個發現、一句組員的話，或一節經文'}
   ]},
   {id: '02', t: '價值觀', s: 'My Values 價值卡', c: '#d9a441', hc: '#725217', f: [
-    {h: '極速價值搜尋：我搶到的價值卡', k: 'rush', cards: 1, max: 5, hint: '在最重要的一張的 ☆ 打勾\n☆ 單元 06 用：我最看重的 3 個價值', star: 1},
-    {h: '我的標書（價值拍賣會）', k: 'bid', cards: 1, max: 8, hint: '共 100 萬，每項最少 5 萬。\n☆ 單元 06 用：我最看重的 3 個價值', star: 1, extras: [
+    {h: '極速價值搜尋：我搶到的價值卡', k: 'rush', cards: 1, max: 5, hint: '（在最重要的一張的 ☆ 打勾）', star: 1, oneStar: 1},
+    {h: '我的標書（價值拍賣會）', k: 'bid', cards: 1, max: 8, hint: '共 100 萬，每項最少 5 萬\n☆ 單元 06 用：我最看重的 3 個價值', star: 1, extras: [
       {k: 'price', label: '出價（萬）', type: 'number'},
       {k: 'won', label: '得標？', type: 'toggle'}
     ]},
@@ -48,7 +48,9 @@ const U = [
   ]},
   {id: '05', t: '優勢', s: 'All about Strengths 優勢卡', c: '#8a72b8', hc: '#634a93', f: [
     {h: '力爭上游：我保住的優勢卡', k: 'mine', cards: 1, max: 5, hint: '每張卡都用一個親身事例保住\n☆ 單元 06 用：我的 3 個優勢', star: 1},
-    {h: '組員送給我的卡', k: 'given', cards: 1, max: 8, hint: '備註可以寫卡名，以及是誰送的。', star: 1},
+    {h: '組員送給我的卡', k: 'given', cards: 1, max: 8, hint: '備註可以寫卡名，以及是誰送的。', star: 1, extras: [
+      {k: 'giver', label: '送卡人', type: 'text'}
+    ]},
     {h: '一句令我意外的回饋', type: 'subs', parts: [
       {h: '誰送的', k: 'surpriseWho', type: 'text'},
       {h: '他說', k: 'surpriseSaid', type: 'ta'}
@@ -84,6 +86,8 @@ S.review = S.review || {};
 migrateLibraryCards();
 migratePresentCard();
 migratePaperFields();
+migrateLegacyNotes();
+migrateRushStar();
 let cur = '00';
 let db = null;
 
@@ -138,12 +142,127 @@ function migratePresentCard() {
     save();
   } catch (e) {}
 }
+function joinLines(s) {
+  return String(s).split(/\r?\n/).map(x => x.trim()).filter(Boolean).join('／');
+}
+function isSingleLine(unitId, key) {
+  const u = U.find(x => x.id === unitId);
+  if (!u) return false;
+  for (const f of u.f || []) {
+    if (f.parts) {
+      const p = f.parts.find(x => x.k === key);
+      if (p) return p.type !== 'ta';
+    }
+    if (f.k === key) {
+      if (f.cards || f.type === 'ta' || f.type === 'chips' || f.type === 'johari' || f.type === 'cbd' || f.type === 'subs') return false;
+      return true;
+    }
+  }
+  return false;
+}
 function fillFrom(unitId, from, to) {
   const unit = S.u && S.u[unitId];
   if (!unit || typeof unit[from] !== 'string' || !unit[from]) return false;
   if (typeof unit[to] === 'string' && unit[to]) return false;
-  unit[to] = unit[from];
+  unit[to] = isSingleLine(unitId, to) ? joinLines(unit[from]) : unit[from];
   return true;
+}
+function emptyField(v) { return v == null || String(v).trim() === ''; }
+function takeBid(text) {
+  const wan = String(text).match(/(\d+)\s*萬/);
+  if (wan) return {num: wan[1], rest: text.slice(0, wan.index) + text.slice(wan.index + wan[0].length)};
+  const bare = String(text).match(/(?:^|\s)(\d+)\s*$/);
+  if (!bare) return null;
+  return {num: bare[1], rest: text.slice(0, bare.index)};
+}
+function takeRiasec(text) {
+  const re = /[（(]\s*([RIASECriasec](?:[\s,、，/／]*[RIASECriasec])*)\s*[）)]/g;
+  let letters = '';
+  let rest = '';
+  let last = 0;
+  let found = false;
+  for (const m of String(text).matchAll(re)) {
+    found = true;
+    letters += m[1].replace(/[^RIASECriasec]/g, '').toUpperCase();
+    rest += text.slice(last, m.index);
+    last = m.index + m[0].length;
+  }
+  if (!found || !letters) return null;
+  rest += text.slice(last);
+  return {letters, rest};
+}
+function takeGiver(text) {
+  const matches = [...String(text).matchAll(/[（(]\s*([^（()）)]*?)\s*[）)]/g)];
+  for (let i = matches.length - 1; i >= 0; i--) {
+    const inner = matches[i][1].trim();
+    if (!inner || /^[RIASECriasec](?:[\s,、，/／]*[RIASECriasec])*$/.test(inner)) continue;
+    return {name: joinLines(inner), rest: text.slice(0, matches[i].index) + text.slice(matches[i].index + matches[i][0].length)};
+  }
+  return null;
+}
+function splitCard(it, kind) {
+  if (!it || typeof it !== 'object' || Array.isArray(it)) return false;
+  if (typeof it.original === 'string') return false;
+  const raw = typeof it.n === 'string' ? it.n : '';
+  if (!raw) return false;
+  const photo = it.p;
+  let text = raw;
+  let changed = false;
+  if (kind === 'bid') {
+    const bid = takeBid(text);
+    if (bid && emptyField(it.price)) { it.price = bid.num; text = bid.rest; changed = true; }
+  } else if (kind === 'jobs') {
+    const got = takeRiasec(text);
+    if (got && emptyField(it.riasec)) { it.riasec = got.letters; text = got.rest; changed = true; }
+  } else if (kind === 'given') {
+    const got = takeGiver(text);
+    if (got && emptyField(it.giver)) { it.giver = got.name; text = got.rest; changed = true; }
+  }
+  const flat = joinLines(text);
+  if (!(changed || (/\r?\n/.test(raw) && flat !== raw))) return false;
+  it.original = raw;
+  it.n = flat;
+  if (photo) it.p = photo;
+  return true;
+}
+function migrateLegacyNotes() {
+  try {
+    if (S.mig && S.mig.notes) return;
+    const units = S.u;
+    if (units && typeof units === 'object') {
+      const kindOf = { '02': {bid: 'bid'}, '03': {jobs: 'jobs'}, '05': {given: 'given'} };
+      Object.keys(units).forEach(uid => {
+        const unit = units[uid];
+        if (!unit || typeof unit !== 'object') return;
+        Object.keys(unit).forEach(key => {
+          const val = unit[key];
+          if (typeof val === 'string' && /\r?\n/.test(val) && isSingleLine(uid, key)) {
+            const next = joinLines(val);
+            if (next !== val) unit[key] = next;
+          }
+          if (!Array.isArray(val)) return;
+          const kind = ((kindOf[uid] || {})[key]) || '';
+          val.forEach(it => { splitCard(it, kind); });
+        });
+      });
+    }
+    S.mig = {...(S.mig || {}), notes: 1};
+    save();
+  } catch (e) {}
+}
+function migrateRushStar() {
+  try {
+    const list = S.u && S.u['02'] && S.u['02'].rush;
+    if (!Array.isArray(list)) return;
+    let seen = false;
+    let changed = false;
+    list.forEach(it => {
+      if (!it || typeof it !== 'object' || !it.st) return;
+      if (seen) { it.st = false; changed = true; }
+      else seen = true;
+    });
+    if (changed) save();
+  } catch (e) {}
 }
 function migratePaperFields() {
   try {
@@ -265,6 +384,14 @@ function navR() {
     const left = on.offsetLeft - (navEl.clientWidth - on.offsetWidth) / 2;
     navEl.scrollTo({left: Math.max(0, left)});
   }
+  navHint();
+}
+function navHint() {
+  const wrap = document.getElementById('navWrap');
+  if (!wrap || !navEl) return;
+  const max = navEl.scrollWidth - navEl.clientWidth;
+  wrap.classList.toggle('scrolled', navEl.scrollLeft > 2);
+  wrap.classList.toggle('at-end', max <= 2 || navEl.scrollLeft >= max - 2);
 }
 function go(id) {
   cur = id;
@@ -405,7 +532,16 @@ function cardList(u, f, box) {
           star.title = '帶去單元 06';
           star.textContent = '☆';
           star.setAttribute('aria-pressed', it.st ? 'true' : 'false');
-          star.onclick = () => { it.st = !it.st; setv(u.id, f.k, list); draw(); maybeRefreshCbd(); };
+          star.onclick = () => {
+            if (f.oneStar) {
+              const on = !it.st;
+              list.forEach(x => { if (x) x.st = false; });
+              it.st = on;
+            } else it.st = !it.st;
+            setv(u.id, f.k, list);
+            draw();
+            maybeRefreshCbd();
+          };
           tools.appendChild(star);
         }
         tools.appendChild(del);
@@ -422,7 +558,7 @@ function cardList(u, f, box) {
             const b = document.createElement('button');
             b.type = 'button';
             b.className = 'won-btn' + (it[ex.k] ? ' on' : '');
-            b.textContent = ex.label;
+            b.textContent = it[ex.k] ? '✓ 得標' : ex.label;
             b.setAttribute('aria-pressed', it[ex.k] ? 'true' : 'false');
             b.onclick = () => { it[ex.k] = !it[ex.k]; setv(u.id, f.k, list); draw(); };
             wrap.appendChild(b);
@@ -470,8 +606,19 @@ function cardList(u, f, box) {
   draw();
 }
 
+function cbdName(raw) {
+  let name = String(raw || '').replace(/\s+/g, ' ').trim();
+  let prev;
+  do {
+    prev = name;
+    name = name.replace(/\s*[（(][^（()）)]*[）)]\s*$/, '').trim();
+    name = name.replace(/\s*\d+\s*萬\s*$/, '').trim();
+    name = name.replace(/\s*\d+\s*$/, '').trim();
+  } while (name && name !== prev);
+  return name;
+}
 function cbdKey(it) {
-  const name = String(it && it.n || '').replace(/\s+/g, ' ').trim();
+  const name = cbdName(it && it.n);
   if (name) return 'n:' + name;
   if (it && it.p) return 'p:' + it.p;
   return '';
@@ -507,6 +654,8 @@ async function renderCbd() {
     <svg class="tri-svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
       <polygon points="50,1.2 1.2,98.8 98.8,98.8"></polygon>
     </svg>
+    <div class="edge edge-drive">驅動 →</div>
+    <div class="edge edge-show">← 呈現</div>
     <div class="zone tri-call" data-zone="calling" style="border-color:#c15a7c;background:#fbf1f5"><h3>尋召命 Calling</h3><div class="src">聯想圖卡（1–3 張）</div><div class="pills">${await pills(calling, '尚未拍下或寫下')}</div>${note ? `<div class="src call-note">${esc(note)}</div>` : ''}</div>
     <div class="zone tri-care" data-zone="caring" style="border-color:#6aa56b;background:#f2f8f2"><h3>展關懷 Caring</h3>${field ? `<div class="care-text">${esc(field)}</div>` : '<div class="src">在下面寫下回應召命之後的關顧</div>'}</div>
     <div class="zone tri-being" data-zone="being" style="border-color:#d9a441;background:#fdf8ee"><h3>活真我 Being<span class="role">做人</span></h3><div class="src">價值卡首 3 張（02）</div><div class="pills">${await pills(bv.shown)}</div>${cap(bv.more)}<div class="src">This is Me! 卡首 3 張（04）${disc ? '・' + esc(disc) : ''}</div><div class="pills">${await pills(bm.shown)}</div>${cap(bm.more)}</div>
@@ -631,6 +780,8 @@ menuBtn.onclick = async () => {
         migrateLibraryCards();
         migratePresentCard();
         migratePaperFields();
+        migrateLegacyNotes();
+        migrateRushStar();
         save();
         go('00');
       } catch (e) { alert('匯入失敗，請確認檔案是尋卓護照匯出的備份。'); }
@@ -640,9 +791,33 @@ menuBtn.onclick = async () => {
   if (c === '3') print();
 };
 
+function showUpdate() {
+  const el = document.getElementById('upd');
+  if (el) el.hidden = false;
+}
+const updBtn = document.getElementById('updBtn');
+if (updBtn) updBtn.onclick = () => location.reload();
+if (navEl) {
+  navEl.addEventListener('scroll', navHint, {passive: true});
+  window.addEventListener('resize', navHint);
+}
 if ('serviceWorker' in navigator) {
+  let hadController = !!navigator.serviceWorker.controller;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (!hadController) { hadController = true; return; }
+    showUpdate();
+  });
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register(new URL('sw.js', BASE).href, {scope: new URL('./', BASE).href, updateViaCache: 'none'}).catch(() => {});
+    navigator.serviceWorker.register(new URL('sw.js', BASE).href, {scope: new URL('./', BASE).href, updateViaCache: 'none'}).then(reg => {
+      if (reg.waiting && navigator.serviceWorker.controller) showUpdate();
+      reg.addEventListener('updatefound', () => {
+        const nw = reg.installing;
+        if (!nw) return;
+        nw.addEventListener('statechange', () => {
+          if (nw.state === 'installed' && navigator.serviceWorker.controller) showUpdate();
+        });
+      });
+    }).catch(() => {});
   });
 }
 
