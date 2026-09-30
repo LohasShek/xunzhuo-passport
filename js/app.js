@@ -173,8 +173,15 @@ function stripEmptyBrackets(s) {
 }
 function takeBid(text) {
   const src = String(text);
-  const wan = src.match(/(\d+)\s*萬/);
-  if (wan) return wan[1];
+  const re = /(?:^|[^\d.．／/])(\d+)\s*萬/g;
+  let num = null;
+  let m;
+  while ((m = re.exec(src))) {
+    const after = src.slice(m.index + m[0].length);
+    if (/^\s*[\d０-９千百十.．]/.test(after)) return null;
+    if (num == null) num = m[1];
+  }
+  if (num != null) return num;
   const paren = src.match(/[（(]\s*(\d+)\s*[）)]/);
   if (paren) return paren[1];
   return null;
