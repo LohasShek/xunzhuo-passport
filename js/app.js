@@ -1,14 +1,19 @@
 const U = [
   {id: '00', t: '首頁', c: '#3d5a73'},
   {id: '01', t: '現況與起點', s: 'PES Model・聯想圖卡', c: '#e0795b', f: [
-    {h: 'P 現況 Present', k: 'p', cards: 1, max: 1, set: 'association', note: '它反映我現在的工作或生活狀態'},
-    {h: 'E 期待終點 End', k: 'e', cards: 1, max: 1, set: 'association', note: '我渴望看見的改變'},
-    {h: 'S 嘗試方案 Solution', k: 's', cards: 1, max: 1, set: 'association', note: '一個月內可以試做的一件小事'},
+    {h: 'P 現況 Present', k: 'p', cards: 1, max: 3, set: 'association', hint: '我在這圖看見什麼？\n這圖什麼地方最吸引我？\n這圖對我有什麼意義？\n這圖怎樣代表我現在的狀態？'},
+    {h: 'E1 理想終點 End', k: 'e', cards: 1, max: 1, set: 'association', note: '這圖啟發我可以作出什麼改變，讓世界變得更美好？'},
+    {h: 'E2 理想終點 End', k: 'e2', cards: 1, max: 1, set: 'association', note: '這圖令我聯想到哪些人際關係，是我最珍惜及最想改善的？'},
+    {h: 'E3 理想終點 End', k: 'e3', cards: 1, max: 1, set: 'association', note: '這圖令我聯想到，是什麼給了我生命的意義和召命？'},
+    {h: 'S 嘗試方案 Solution', k: 's', cards: 1, max: 1, set: 'association'},
+    {h: '這圖令我想到的目標（幫我實現理想終點的改變、改善或使命）', k: 'sgoal', type: 'ta'},
+    {h: '一個月內要做的 3 個行動', k: 'sacts', cards: 1, max: 3, nophoto: 1},
     {h: '預計完成日期', k: 'sdate', type: 'date'},
     {h: '今日帶走的一句', k: 'take', type: 'ta', hint: '可以是一個發現、一句組員的話，或一節經文。'}
   ]},
   {id: '02', t: '價值觀', s: 'My Values 價值卡', c: '#d9a441', f: [
-    {h: '我的標書', k: 'bid', cards: 1, max: 8, set: 'values', hint: '每行寫一張價值卡和出價，例如「家庭 30 萬」。在最看重的 3 張按 ☆。', star: 1},
+    {h: '極速價值搜尋：我搶到的價值卡', k: 'rush', cards: 1, max: 5, set: 'values', hint: '最看重的按 ☆。', star: 1},
+    {h: '我的標書（價值拍賣會）', k: 'bid', cards: 1, max: 8, set: 'values', hint: '每行寫一張價值卡和出價，例如「家庭 30 萬」。在最看重的 3 張按 ☆。', star: 1},
     {h: '放棄時最心痛的一張', k: 'pain', type: 'ta'},
     {h: '我最終要守住的價值', k: 'keep', type: 'text'},
     {h: '今日帶走的一句', k: 'take', type: 'ta'}
@@ -26,18 +31,19 @@ const U = [
     {h: '今日帶走的一句', k: 'take', type: 'ta'}
   ]},
   {id: '05', t: '優勢', s: 'All about Strengths 優勢卡', c: '#8a72b8', f: [
-    {h: '我自選的 5 張優勢卡', k: 'mine', cards: 1, max: 5, set: 'strengths', hint: '最想帶去單元 06 的 3 張按 ☆（可以包括組員送的）。', star: 1},
+    {h: '力爭上游：我保住的優勢卡', k: 'mine', cards: 1, max: 5, set: 'strengths', hint: '每張卡要分享一個真實的個人例子，才能保住。最想帶去單元 06 的按 ☆。', star: 1},
     {h: '組員送給我的卡', k: 'given', cards: 1, max: 8, set: 'strengths', hint: '卡名後可以寫是誰送的。', star: 1},
     {h: '我的優勢輪廓圖（周哈里窗）', k: 'johari', type: 'johari'},
-    {h: '我做得好、但做完很累的事（耗盡型技能）', k: 'drain', type: 'ta'},
+    {h: '耗盡技能 (Burnout Skill)', k: 'drain', type: 'ta', hint: '做得好、但做完很累的事。'},
     {h: '今日帶走的一句', k: 'take', type: 'ta'}
   ]},
-  {id: '06', t: '整合與召命', s: '我的 CBDC', c: '#c15a7c', f: [
+  {id: '06', t: '整合與召命', s: '我的 CBD', c: '#c15a7c', f: [
     {h: 'CBD', k: 'cbd', type: 'cbd'},
     {h: '尋召命 Calling：聯想圖卡', k: 'calling', cards: 1, max: 3, set: 'association', note: '我感到被呼召的方向'},
-    {h: '展關懷 Caring：我想關心和貢獻的群體或人', k: 'field', type: 'ta'},
-    {h: '下個月的 3 項行動', k: 'acts', cards: 1, max: 3, nophoto: 1},
-    {h: '六次聚會後，我想對起點的自己說', k: 'back', type: 'ta', hint: '先看看單元 01 寫的 E（期待終點）。'}
+    {h: '展關懷 Caring：回應了這個召命，我對身邊哪些人和這個世界多了一份關顧？', k: 'field', type: 'ta', hint: 'Caring 是人回應 Calling 之後，引起的對世界的關顧。'},
+    {h: '五年後，我想在 Being 和 Doing 上達成什麼目標？', k: 'five', type: 'ta'},
+    {h: '為了實現我的 Calling，我馬上要做的三件重要事情', k: 'acts', cards: 1, max: 3, nophoto: 1},
+    {h: '六次聚會後，我想對起點的自己說', k: 'back', type: 'ta', hint: '先看看單元 01 寫的 E（理想終點）。'}
   ]}
 ];
 
@@ -368,13 +374,14 @@ function cardList(u, f, box) {
       const add = document.createElement('button');
       add.type = 'button';
       add.className = 'btn ghost add-row';
-      add.textContent = '＋ 加一張';
+      add.textContent = f.nophoto ? '＋ 加一項' : '＋ 加一張';
       add.onclick = () => { list.push({n: ''}); draw(); };
       actions.appendChild(add);
     }
     if (actions.childNodes.length) box.appendChild(actions);
     if (f.note) {
       const l = document.createElement('label');
+      l.className = 'ask';
       l.textContent = f.note;
       const t = document.createElement('textarea');
       t.value = uv(u.id, f.k + '_note') || '';
@@ -495,7 +502,7 @@ async function renderCbd() {
   const el = document.getElementById('cbd');
   if (!el) return;
   const my = ++cbdToken;
-  const bv = starred('02', 'bid');
+  const bv = [...starred('02', 'rush'), ...starred('02', 'bid')];
   const bm = starred('04', 'nine');
   const dj = starred('03', 'jobs');
   const ds = [...starred('05', 'mine'), ...starred('05', 'given')];
@@ -505,10 +512,13 @@ async function renderCbd() {
   const field = uv('06', 'field') || '';
   const note = uv('06', 'calling_note') || '';
   const html = `
-    <div class="zone" data-zone="being" style="border-color:#d9a441;background:#fdf8ee"><h3>活真我 Being</h3><div class="src">價值（02）</div><div class="pills">${await pills(bv)}</div><div class="src">This is Me（04）${disc ? '・' + esc(disc) : ''}</div><div class="pills">${await pills(bm)}</div></div>
-    <div class="zone" data-zone="doing" style="border-color:#4f94b8;background:#f1f7fb"><h3>行使命 Doing</h3><div class="src">職業（03）${code ? '・' + esc(code) : ''}</div><div class="pills">${await pills(dj)}</div><div class="src">優勢（05）</div><div class="pills">${await pills(ds)}</div></div>
-    <div class="zone" data-zone="calling" style="border-color:#c15a7c;background:#fbf1f5"><h3>尋召命 Calling</h3><div class="src">在下面加入 1–3 張聯想圖卡</div><div class="pills">${await pills(calling, '尚未選擇聯想圖卡')}</div>${note ? `<div class="src" style="color:var(--ink)">${esc(note)}</div>` : ''}</div>
-    <div class="zone" data-zone="caring" style="border-color:#6aa56b;background:#f2f8f2"><h3>展關懷 Caring</h3>${field ? `<div class="care-text" style="font-size:14px">${esc(field)}</div>` : '<div class="src">在下面寫下想關心和貢獻的群體或人</div>'}</div>`;
+    <svg class="tri-svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+      <polygon points="50,1.2 1.2,98.8 98.8,98.8"></polygon>
+    </svg>
+    <div class="zone tri-call" data-zone="calling" style="border-color:#c15a7c;background:#fbf1f5"><h3>尋召命 Calling</h3><div class="src">聯想圖卡</div><div class="pills">${await pills(calling, '尚未選擇聯想圖卡')}</div>${note ? `<div class="src call-note">${esc(note)}</div>` : ''}</div>
+    <div class="zone tri-care" data-zone="caring" style="border-color:#6aa56b;background:#f2f8f2"><h3>展關懷 Caring</h3>${field ? `<div class="care-text">${esc(field)}</div>` : '<div class="src">在下面寫下回應召命之後的關顧</div>'}</div>
+    <div class="zone tri-being" data-zone="being" style="border-color:#d9a441;background:#fdf8ee"><h3>活真我 Being<span class="role">做人</span></h3><div class="src">價值（02）</div><div class="pills">${await pills(bv)}</div><div class="src">This is Me（04）${disc ? '・' + esc(disc) : ''}</div><div class="pills">${await pills(bm)}</div></div>
+    <div class="zone tri-doing" data-zone="doing" style="border-color:#4f94b8;background:#f1f7fb"><h3>行使命 Doing<span class="role">做事</span></h3><div class="src">職業（03）${code ? '・' + esc(code) : ''}</div><div class="pills">${await pills(dj)}</div><div class="src">優勢（05）</div><div class="pills">${await pills(ds)}</div></div>`;
   if (my !== cbdToken || !document.body.contains(el)) return;
   el.innerHTML = html;
   bindPillPhotos(el);
@@ -528,12 +538,18 @@ function bindPillPhotos(root) {
   root.querySelectorAll('.pill img').forEach(img => { img.onclick = () => showPhoto(img.src); });
 }
 
+function hintBlock(hint) {
+  if (!hint) return '';
+  const lines = String(hint).split('\n').map(s => s.trim()).filter(Boolean);
+  if (lines.length <= 1) return `<p class="hint">${esc(hint)}</p>`;
+  return `<ol class="qlist">${lines.map(line => `<li>${esc(line)}</li>`).join('')}</ol>`;
+}
 function unit(u) {
   appEl.innerHTML = `<div class="card" style="border-top:5px solid ${u.c}"><div style="font-size:22px;font-weight:700;color:${u.c}">${u.id} ${esc(u.t)}</div><div class="hint" style="margin:0">${esc(u.s)}</div></div>`;
   u.f.forEach(f => {
     const c = document.createElement('div');
     c.className = 'card';
-    c.innerHTML = `<h2>${esc(f.h)}</h2>${f.hint ? `<p class="hint">${esc(f.hint)}</p>` : ''}`;
+    c.innerHTML = `<h2>${esc(f.h)}</h2>${hintBlock(f.hint)}`;
     const box = document.createElement('div');
     c.appendChild(box);
     appEl.appendChild(c);
@@ -578,8 +594,8 @@ function unit(u) {
         unit(u);
       };
     } else if (f.type === 'cbd') {
-      c.querySelector('h2').textContent = '我的 CBDC';
-      box.innerHTML = '<p class="hint">自動帶入單元 02–05 按了 ☆ 的卡。</p><div class="cbd" id="cbd"></div>';
+      c.querySelector('h2').textContent = '我的 CBD';
+      box.innerHTML = '<p class="hint">星號卡放在三角形的三個角，展關懷在中間。</p><div class="cbd-tri" id="cbd"></div>';
       renderCbd();
     }
   });

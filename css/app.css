@@ -10,6 +10,9 @@ main{max-width:640px;margin:0 auto;padding:14px 14px 90px}
 h2{font-size:16px;margin:0 0 8px;border-left:4px solid var(--c);padding-left:8px}
 .hint{color:var(--mute);font-size:13px;margin:-2px 0 8px}
 label{display:block;font-size:14px;font-weight:600;margin:8px 0 4px}
+label.ask{line-height:1.45}
+.qlist{margin:0 0 8px;padding-left:1.25em;color:var(--mute);font-size:13px}
+.qlist li{margin:3px 0}
 input[type=text],textarea,input[type=date],input[type=search]{width:100%;border:1px solid var(--line);border-radius:10px;padding:9px 10px;font:inherit;background:#fcfcfd}
 textarea{min-height:64px;resize:vertical}
 .stamps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
@@ -36,9 +39,22 @@ textarea{min-height:64px;resize:vertical}
 .johari .q b{font-size:14px;color:var(--c)}
 .johari .q small{display:block;color:var(--mute);font-size:12px;margin-bottom:4px}
 .johari textarea{min-height:70px;font-size:14px}
-.cbd .zone{border-radius:14px;padding:10px;margin-bottom:10px;border:2px solid}
+.cbd .zone,.cbd-tri .zone{border-radius:14px;padding:10px;margin-bottom:10px;border:2px solid}
 .zone h3{margin:0 0 6px;font-size:15px}
 .zone .src{font-size:12px;color:var(--mute);margin:6px 0 4px}
+.cbd-tri{position:relative;display:grid;grid-template-columns:1fr 1fr;grid-template-areas:"call call" "care care" "being doing";grid-template-rows:auto minmax(120px,auto) auto;column-gap:10px;row-gap:8px;align-items:center;padding:28px 18px 16px}
+.cbd-tri .tri-svg{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.cbd-tri .tri-svg polygon{fill:rgba(193,90,124,.1);stroke:#c15a7c;stroke-width:4;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.cbd-tri .zone{position:relative;z-index:1;margin:0;min-width:0}
+.cbd-tri .tri-call{grid-area:call;justify-self:center;width:min(94%,270px)}
+.cbd-tri .tri-care{grid-area:care;justify-self:center;align-self:center;width:min(76%,210px);border-radius:18px}
+.cbd-tri .tri-being{grid-area:being}
+.cbd-tri .tri-doing{grid-area:doing}
+.cbd-tri h3{font-size:14px;line-height:1.35}
+.cbd-tri .role{display:block;font-size:12px;font-weight:700}
+.cbd-tri .src{font-size:11px}
+.cbd-tri .pill{font-size:13px;max-width:100%}
+.cbd-tri .care-text,.cbd-tri .call-note{font-size:14px;line-height:1.45;color:var(--ink)}
 .pills{display:flex;flex-wrap:wrap;gap:6px}
 .pill{display:flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--line);border-radius:20px;padding:3px 10px 3px 3px;font-size:14px}
 .pill img{width:30px;height:30px;border-radius:50%;object-fit:cover;cursor:pointer}
@@ -75,4 +91,5 @@ body.noscroll{overflow:hidden}
   header,nav,.noprint,.picker{display:none!important}
   body{background:#fff}
   .card{box-shadow:none;border:1px solid #ddd;break-inside:avoid}
+  .cbd-tri,.cbd-tri .zone{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
