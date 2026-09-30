@@ -173,13 +173,11 @@ function stripEmptyBrackets(s) {
 }
 function takeBid(text) {
   const src = String(text);
-  const paren = src.match(/[（(]\s*(\d+)\s*萬?\s*[）)]/);
-  if (paren) return {num: paren[1], rest: src.slice(0, paren.index) + src.slice(paren.index + paren[0].length)};
   const wan = src.match(/(\d+)\s*萬/);
-  if (wan) return {num: wan[1], rest: stripEmptyBrackets(src.slice(0, wan.index) + src.slice(wan.index + wan[0].length))};
-  const bare = src.match(/(?:^|\s)(\d+)\s*$/);
-  if (!bare) return null;
-  return {num: bare[1], rest: src.slice(0, bare.index)};
+  if (wan) return wan[1];
+  const paren = src.match(/[（(]\s*(\d+)\s*[）)]/);
+  if (paren) return paren[1];
+  return null;
 }
 function takeRiasec(text) {
   const re = /[（(]\s*([RIASECriasec](?:[\s,、，/／]*[RIASECriasec])*)\s*[）)]/g;
@@ -215,8 +213,12 @@ function splitCard(it, kind) {
   let text = raw;
   let changed = false;
   if (kind === 'bid') {
-    const bid = takeBid(text);
-    if (bid && emptyField(it.price)) { it.price = bid.num; text = bid.rest; changed = true; }
+    const num = takeBid(raw);
+    if (!(num && emptyField(it.price))) return false;
+    it.price = num;
+    it.original = raw;
+    if (photo) it.p = photo;
+    return true;
   } else if (kind === 'jobs') {
     const got = takeRiasec(text);
     if (got && emptyField(it.riasec)) { it.riasec = got.letters; text = got.rest; changed = true; }
@@ -231,33 +233,12 @@ function splitCard(it, kind) {
   if (photo) it.p = photo;
   return true;
 }
-function rebuildFromOriginal(it, kind) {
-  if (!it || typeof it !== 'object' || typeof it.original !== 'string') return false;
-  if (!/[（(]\s*[）)]/.test(String(it.n || ''))) return false;
+function rebuildFromOriginal(it) {
+  if (!it || typeof it !== 'object' || Array.isArray(it)) return false;
+  if (typeof it.original !== 'string') return false;
+  if (it.n === it.original) return false;
   const photo = it.p;
-  let text = it.original;
-  if (kind === 'bid') {
-    const bid = takeBid(text);
-    if (bid) {
-      if (emptyField(it.price)) it.price = bid.num;
-      text = bid.rest;
-    }
-  } else if (kind === 'jobs') {
-    const got = takeRiasec(text);
-    if (got) {
-      if (emptyField(it.riasec)) it.riasec = got.letters;
-      text = got.rest;
-    }
-  } else if (kind === 'given') {
-    const got = takeGiver(text);
-    if (got) {
-      if (emptyField(it.giver)) it.giver = got.name;
-      text = got.rest;
-    }
-  }
-  const flat = stripEmptyBrackets(joinLines(text)).trim();
-  if (it.n === flat) return false;
-  it.n = flat;
+  it.n = it.original;
   if (photo) it.p = photo;
   return true;
 }
@@ -293,8 +274,7 @@ function migrateLegacyNotes() {
         Object.keys(unit).forEach(key => {
           const val = unit[key];
           if (!Array.isArray(val)) return;
-          const kind = ((kindOf[uid] || {})[key]) || '';
-          val.forEach(it => { if (rebuildFromOriginal(it, kind)) changed = true; });
+          val.forEach(it => { if (rebuildFromOriginal(it)) changed = true; });
         });
       });
     }
@@ -540,7 +520,12 @@ function cardList(u, f, box) {
       inp.className = 'card-input';
       inp.placeholder = f.nophoto ? '行動' : '卡名或想法（選填）';
       inp.value = it.n || '';
-      inp.oninput = () => { it.n = inp.value; setv(u.id, f.k, list); maybeRefreshCbd(); };
+      inp.oninput = () => {
+        it.n = inp.value;
+        if (typeof it.original === 'string') it.original = it.n;
+        setv(u.id, f.k, list);
+        maybeRefreshCbd();
+      };
       head.appendChild(inp);
       const del = document.createElement('button');
       del.type = 'button';
