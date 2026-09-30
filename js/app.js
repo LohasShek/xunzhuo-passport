@@ -14,7 +14,7 @@ const U = [
   ]},
   {id: '02', t: '價值觀', s: 'My Values 價值卡', c: '#d9a441', hc: '#725217', f: [
     {h: '極速價值搜尋：我搶到的價值卡', k: 'rush', cards: 1, max: 5, hint: '（在最重要的一張的 ☆ 打勾）', star: 1, oneStar: 1},
-    {h: '我的標書（價值拍賣會）', k: 'bid', cards: 1, max: 8, hint: '共 100 萬，每項最少 5 萬\n☆ 單元 06 用：我最看重的 3 個價值', star: 1, extras: [
+    {h: '我的標書（價值拍賣會）', k: 'bid', cards: 1, max: 8, hint: '每人銀行戶有 100 萬（教材 p.36）\n☆ 單元 06 用：我最看重的 3 個價值', star: 1, extras: [
       {k: 'price', label: '出價（萬）', type: 'number'},
       {k: 'won', label: '得標？', type: 'toggle'}
     ]},
@@ -26,7 +26,7 @@ const U = [
     {h: '今日帶走的一句', k: 'take', type: 'ta'}
   ]},
   {id: '03', t: '職業興趣', s: '職業探索卡・RIASEC', c: '#6aa56b', hc: '#3a603b', f: [
-    {h: '我手上感興趣的職業卡', k: 'jobs', cards: 1, max: 6, hint: '☆ 在最想帶去單元 06 的 3 張打勾。', star: 1, extras: [
+    {h: '我手上感興趣的職業卡', k: 'jobs', cards: 1, max: 5, hint: '☆ 在最想帶去單元 06 的 3 張打勾。', star: 1, extras: [
       {k: 'riasec', label: 'RIASEC 類型', type: 'text'}
     ]},
     {h: '我的職業興趣類型', type: 'subs', hint: '最多的三個類型，會後網上測試可再補上', parts: [
@@ -55,7 +55,7 @@ const U = [
       {h: '誰送的', k: 'surpriseWho', type: 'text'},
       {h: '他說', k: 'surpriseSaid', type: 'ta'}
     ]},
-    {h: '我的優勢輪廓圖（周哈里窗）', k: 'johari', type: 'johari'},
+    {h: '我的優勢輪廓圖（Johari Window）', k: 'johari', type: 'johari'},
     {h: '我做得好、但做完很累的事', sub: '耗盡技能 (Burnout Skill)', k: 'drain', type: 'ta'},
     {h: '今日帶走的一句', k: 'take', type: 'ta'}
   ]},
@@ -713,9 +713,9 @@ function unit(u) {
         b.classList.toggle('on');
       });
     } else if (f.type === 'johari') {
-      const q = [['open', '公開區', '我選了，也有人送給我'], ['blind', '盲點區', '我沒選，但有人送給我'], ['hidden', '隱藏區', '我選了，但沒有人送'], ['unknown', '未知區・待發展', '還未看見、想發展的']];
+      const q = [['open', '公開區', '我選了，也有人送給我'], ['blind', '盲點區', '我沒選，但有人送給我'], ['hidden', '隱藏區', '我選了，但沒有人送'], ['unknown', '未知區', '是空的，自己和他人都不知']];
       const v = uv(u.id, f.k) || {};
-      box.innerHTML = `<p class="hint">看着相片，把卡名寫進四格。</p><div class="johari">${q.map(x => `<div class="q"><b>${esc(x[1])}${x[0] === 'unknown' ? '<span class="opt">（選做）</span>' : ''}</b><small>${esc(x[2])}</small><textarea data-q="${x[0]}">${esc(v[x[0]])}</textarea></div>`).join('')}</div>`;
+      box.innerHTML = `<p class="hint">看着相片，把卡名寫進公開區、盲點區、隱藏區；未知區是空的（教材 p.73）。</p><div class="johari">${q.map(x => `<div class="q"><b>${esc(x[1])}</b><small>${esc(x[2])}</small><textarea data-q="${x[0]}">${esc(v[x[0]])}</textarea></div>`).join('')}</div>`;
       box.querySelectorAll('textarea').forEach(t => t.oninput = () => { v[t.dataset.q] = t.value; setv(u.id, f.k, v); });
     } else if (f.type === 'subs') {
       f.parts.forEach(part => {
