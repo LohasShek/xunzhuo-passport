@@ -1,9 +1,8 @@
-/* 尋卓護照服務工作者。只快取本網站自己的檔案，不連線到第三方。
-   圖卡 manifest 與圖片在有網路時會更新快取，離線時用上次成功下載的副本。
-   更換 cards/ 與 images/ 不需要修改這個檔案。 */
-const CACHE = 'xunzhuo-passport-v3';
+/* 尋卓護照服務工作者。只快取本網站自己的程式檔，不連線到第三方。
+   不載入、也不快取已移除的卡庫（cards/ 與 images/）。 */
+const CACHE = 'xunzhuo-passport-v4';
 
-function isLibrary(url) {
+function isRetiredLibrary(url) {
   return url.pathname.includes('/cards/') || url.pathname.includes('/images/');
 }
 
@@ -56,19 +55,6 @@ async function fromCache(cache, req) {
   return null;
 }
 
-async function networkFirst(req) {
-  const cache = await caches.open(CACHE);
-  try {
-    const fresh = await fetch(req);
-    if (fresh.ok) await cache.put(req, storedResponse(fresh, await fresh.clone().blob()));
-    return fresh;
-  } catch (err) {
-    const cached = await fromCache(cache, req);
-    if (cached) return cached;
-    throw err;
-  }
-}
-
 async function cacheFirst(req) {
   const cache = await caches.open(CACHE);
   const cached = await cache.match(req);
@@ -92,6 +78,9 @@ self.addEventListener('activate', event => {
   event.waitUntil((async () => {
     const keys = await caches.keys();
     await Promise.all(keys.filter(key => key !== CACHE).map(key => caches.delete(key)));
+    const cache = await caches.open(CACHE);
+    const reqs = await cache.keys();
+    await Promise.all(reqs.filter(req => isRetiredLibrary(new URL(req.url))).map(req => cache.delete(req)));
     await self.clients.claim();
   })());
 });
@@ -102,5 +91,6 @@ self.addEventListener('fetch', event => {
   const url = new URL(req.url);
   if (url.origin !== self.location.origin) return;
   if (url.pathname.endsWith('/sw.js')) return;
-  event.respondWith(isLibrary(url) ? networkFirst(req) : cacheFirst(req));
+  if (isRetiredLibrary(url)) return;
+  event.respondWith(cacheFirst(req));
 });
