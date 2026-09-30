@@ -713,9 +713,9 @@ function unit(u) {
         b.classList.toggle('on');
       });
     } else if (f.type === 'johari') {
-      const q = [['open', '公開區', '我選了，也有人送給我'], ['blind', '盲點區', '我沒選，但有人送給我'], ['hidden', '隱藏區', '我選了，但沒有人送'], ['unknown', '未知區', '是空的，自己和他人都不知']];
+      const q = [['open', 'Open 區', '自己和別人都知道的強項'], ['blind', 'Blind 區', '別人知道而自己不知道的強項'], ['hidden', 'Hidden 區', '自己知道而別人不知道的強項'], ['unknown', 'Unknown 區', '我和別人都未發現的強項']];
       const v = uv(u.id, f.k) || {};
-      box.innerHTML = `<p class="hint">看着相片，把卡名寫進公開區、盲點區、隱藏區；未知區是空的（教材 p.73）。</p><div class="johari">${q.map(x => `<div class="q"><b>${esc(x[1])}</b><small>${esc(x[2])}</small><textarea data-q="${x[0]}">${esc(v[x[0]])}</textarea></div>`).join('')}</div>`;
+      box.innerHTML = `<p class="hint">看着相片，把卡名寫進 Open、Blind、Hidden 三區；Unknown 區沒有卡。</p><div class="johari">${q.map(x => `<div class="q"><b>${esc(x[1])}</b><small>${esc(x[2])}</small><textarea data-q="${x[0]}">${esc(v[x[0]])}</textarea></div>`).join('')}</div>`;
       box.querySelectorAll('textarea').forEach(t => t.oninput = () => { v[t.dataset.q] = t.value; setv(u.id, f.k, v); });
     } else if (f.type === 'subs') {
       f.parts.forEach(part => {
