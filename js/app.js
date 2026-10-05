@@ -13,8 +13,8 @@ const U = [
     {h: '今日帶走的一句', k: 'take', type: 'ta', hint: '一個發現、一句組員的話，或一節經文'}
   ]},
   {id: '02', t: '價值觀', s: 'My Values 價值卡', c: '#d9a441', hc: '#725217', f: [
-    {h: '極速價值搜尋：我搶到的價值卡', k: 'rush', cards: 1, max: 5, hint: '在最重要的一張的 ☆ 打勾\n☆ 單元 06 用：我最看重的 3 個價值', star: 1},
-    {h: '我的標書（價值拍賣會）', k: 'bid', cards: 1, max: 8, hint: '共 100 萬，每項最少 5 萬。\n☆ 單元 06 用：我最看重的 3 個價值', star: 1, extras: [
+    {h: '極速價值搜尋：我搶到的價值卡', k: 'rush', cards: 1, max: 5, hint: '（在最重要的一張的 ☆ 打勾）', star: 1, oneStar: 1},
+    {h: '我的標書（價值拍賣會）', k: 'bid', cards: 1, max: 8, hint: '每人銀行戶有 100 萬（教材 p.36）\n☆ 單元 06 用：我最看重的 3 個價值', star: 1, extras: [
       {k: 'price', label: '出價（萬）', type: 'number'},
       {k: 'won', label: '得標？', type: 'toggle'}
     ]},
@@ -26,7 +26,7 @@ const U = [
     {h: '今日帶走的一句', k: 'take', type: 'ta'}
   ]},
   {id: '03', t: '職業興趣', s: '職業探索卡・RIASEC', c: '#6aa56b', hc: '#3a603b', f: [
-    {h: '我手上感興趣的職業卡', k: 'jobs', cards: 1, max: 6, hint: '☆ 在最想帶去單元 06 的 3 張打勾。', star: 1, extras: [
+    {h: '我手上感興趣的職業卡', k: 'jobs', cards: 1, max: 5, hint: '☆ 在最想帶去單元 06 的 3 張打勾。', star: 1, extras: [
       {k: 'riasec', label: 'RIASEC 類型', type: 'text'}
     ]},
     {h: '我的職業興趣類型', type: 'subs', hint: '最多的三個類型，會後網上測試可再補上', parts: [
@@ -48,12 +48,14 @@ const U = [
   ]},
   {id: '05', t: '優勢', s: 'All about Strengths 優勢卡', c: '#8a72b8', hc: '#634a93', f: [
     {h: '力爭上游：我保住的優勢卡', k: 'mine', cards: 1, max: 5, hint: '每張卡都用一個親身事例保住\n☆ 單元 06 用：我的 3 個優勢', star: 1},
-    {h: '組員送給我的卡', k: 'given', cards: 1, max: 8, hint: '備註可以寫卡名，以及是誰送的。', star: 1},
+    {h: '組員送給我的卡', k: 'given', cards: 1, max: 8, hint: '備註寫卡名，送卡人寫在下面一格。', star: 1, extras: [
+      {k: 'giver', label: '送卡人', type: 'text'}
+    ]},
     {h: '一句令我意外的回饋', type: 'subs', parts: [
       {h: '誰送的', k: 'surpriseWho', type: 'text'},
       {h: '他說', k: 'surpriseSaid', type: 'ta'}
     ]},
-    {h: '我的優勢輪廓圖（周哈里窗）', k: 'johari', type: 'johari'},
+    {h: '我的優勢輪廓圖（Johari Window）', k: 'johari', type: 'johari'},
     {h: '我做得好、但做完很累的事', sub: '耗盡技能 (Burnout Skill)', k: 'drain', type: 'ta'},
     {h: '今日帶走的一句', k: 'take', type: 'ta'}
   ]},
@@ -84,6 +86,8 @@ S.review = S.review || {};
 migrateLibraryCards();
 migratePresentCard();
 migratePaperFields();
+migrateLegacyNotes();
+migrateRushStar();
 let cur = '00';
 let db = null;
 
@@ -138,12 +142,166 @@ function migratePresentCard() {
     save();
   } catch (e) {}
 }
+function joinLines(s) {
+  return String(s).split(/\r?\n/).map(x => x.trim()).filter(Boolean).join('／');
+}
+function isSingleLine(unitId, key) {
+  const u = U.find(x => x.id === unitId);
+  if (!u) return false;
+  for (const f of u.f || []) {
+    if (f.parts) {
+      const p = f.parts.find(x => x.k === key);
+      if (p) return p.type !== 'ta';
+    }
+    if (f.k === key) {
+      if (f.cards || f.type === 'ta' || f.type === 'chips' || f.type === 'johari' || f.type === 'cbd' || f.type === 'subs') return false;
+      return true;
+    }
+  }
+  return false;
+}
 function fillFrom(unitId, from, to) {
   const unit = S.u && S.u[unitId];
   if (!unit || typeof unit[from] !== 'string' || !unit[from]) return false;
   if (typeof unit[to] === 'string' && unit[to]) return false;
-  unit[to] = unit[from];
+  unit[to] = isSingleLine(unitId, to) ? joinLines(unit[from]) : unit[from];
   return true;
+}
+function emptyField(v) { return v == null || String(v).trim() === ''; }
+function stripEmptyBrackets(s) {
+  return String(s).replace(/[（(]\s*[）)]/g, '');
+}
+function takeBid(text) {
+  const src = String(text);
+  const runs = [...src.matchAll(/[0-9０-９]+/g)];
+  if (runs.length !== 1) return null;
+  const raw = runs[0][0];
+  const at = runs[0].index;
+  const prev = at > 0 ? src.charAt(at - 1) : '';
+  if (/[-+－＋−–—~～.．，,、/／]/.test(prev)) return null;
+  const rest = src.slice(at + raw.length);
+  if (/^[.．，,、/／]/.test(rest)) return null;
+  const unit = rest.match(/^\s*(萬元|萬)/);
+  if (!unit) return null;
+  const numerals = /[零〇一二三四五六七八九十百千萬兩]/;
+  if (numerals.test(src.slice(0, at)) || numerals.test(rest.slice(unit[0].length))) return null;
+  return raw.replace(/[０-９]/g, ch => String.fromCharCode(ch.charCodeAt(0) - 0xFF10 + 0x30));
+}
+function takeRiasec(text) {
+  const re = /[（(]\s*([RIASECriasec](?:[\s,、，/／]*[RIASECriasec])*)\s*[）)]/g;
+  let letters = '';
+  let rest = '';
+  let last = 0;
+  let found = false;
+  for (const m of String(text).matchAll(re)) {
+    found = true;
+    letters += m[1].replace(/[^RIASECriasec]/g, '').toUpperCase();
+    rest += text.slice(last, m.index);
+    last = m.index + m[0].length;
+  }
+  if (!found || !letters) return null;
+  rest += text.slice(last);
+  return {letters, rest};
+}
+function takeGiver(text) {
+  const matches = [...String(text).matchAll(/[（(]\s*([^（()）)]*?)\s*[）)]/g)];
+  for (let i = matches.length - 1; i >= 0; i--) {
+    const inner = matches[i][1].trim();
+    if (!inner || /^[RIASECriasec](?:[\s,、，/／]*[RIASECriasec])*$/.test(inner)) continue;
+    return {name: joinLines(inner), rest: text.slice(0, matches[i].index) + text.slice(matches[i].index + matches[i][0].length)};
+  }
+  return null;
+}
+function splitCard(it, kind) {
+  if (!it || typeof it !== 'object' || Array.isArray(it)) return false;
+  if (typeof it.original === 'string') return false;
+  const raw = typeof it.n === 'string' ? it.n : '';
+  if (!raw) return false;
+  const photo = it.p;
+  let text = raw;
+  let changed = false;
+  if (kind === 'bid') {
+    const num = takeBid(raw);
+    if (!(num && emptyField(it.price))) return false;
+    it.price = num;
+    it.original = raw;
+    if (photo) it.p = photo;
+    return true;
+  } else if (kind === 'jobs') {
+    const got = takeRiasec(text);
+    if (got && emptyField(it.riasec)) { it.riasec = got.letters; text = got.rest; changed = true; }
+  } else if (kind === 'given') {
+    const got = takeGiver(text);
+    if (got && emptyField(it.giver)) { it.giver = got.name; text = got.rest; changed = true; }
+  }
+  const flat = stripEmptyBrackets(joinLines(text)).trim();
+  if (!(changed || (/\r?\n/.test(raw) && flat !== raw) || (changed && flat !== raw))) return false;
+  it.original = raw;
+  it.n = flat;
+  if (photo) it.p = photo;
+  return true;
+}
+function rebuildFromOriginal(it) {
+  if (!it || typeof it !== 'object' || Array.isArray(it)) return false;
+  if (typeof it.original !== 'string') return false;
+  if (it.n === it.original) return false;
+  const photo = it.p;
+  it.n = it.original;
+  if (photo) it.p = photo;
+  return true;
+}
+function migrateLegacyNotes() {
+  try {
+    const units = S.u;
+    let changed = false;
+    const kindOf = { '02': {bid: 'bid'}, '03': {jobs: 'jobs'}, '05': {given: 'given'} };
+    if (!(S.mig && S.mig.notes)) {
+      if (units && typeof units === 'object') {
+        Object.keys(units).forEach(uid => {
+          const unit = units[uid];
+          if (!unit || typeof unit !== 'object') return;
+          Object.keys(unit).forEach(key => {
+            const val = unit[key];
+            if (typeof val === 'string' && /\r?\n/.test(val) && isSingleLine(uid, key)) {
+              const next = joinLines(val);
+              if (next !== val) unit[key] = next;
+            }
+            if (!Array.isArray(val)) return;
+            const kind = ((kindOf[uid] || {})[key]) || '';
+            val.forEach(it => { splitCard(it, kind); });
+          });
+        });
+      }
+      S.mig = {...(S.mig || {}), notes: 1};
+      changed = true;
+    }
+    if (units && typeof units === 'object') {
+      Object.keys(units).forEach(uid => {
+        const unit = units[uid];
+        if (!unit || typeof unit !== 'object') return;
+        Object.keys(unit).forEach(key => {
+          const val = unit[key];
+          if (!Array.isArray(val)) return;
+          val.forEach(it => { if (rebuildFromOriginal(it)) changed = true; });
+        });
+      });
+    }
+    if (changed) save();
+  } catch (e) {}
+}
+function migrateRushStar() {
+  try {
+    const list = S.u && S.u['02'] && S.u['02'].rush;
+    if (!Array.isArray(list)) return;
+    let seen = false;
+    let changed = false;
+    list.forEach(it => {
+      if (!it || typeof it !== 'object' || !it.st) return;
+      if (seen) { it.st = false; changed = true; }
+      else seen = true;
+    });
+    if (changed) save();
+  } catch (e) {}
 }
 function migratePaperFields() {
   try {
@@ -265,6 +423,14 @@ function navR() {
     const left = on.offsetLeft - (navEl.clientWidth - on.offsetWidth) / 2;
     navEl.scrollTo({left: Math.max(0, left)});
   }
+  navHint();
+}
+function navHint() {
+  const wrap = document.getElementById('navWrap');
+  if (!wrap || !navEl) return;
+  const max = navEl.scrollWidth - navEl.clientWidth;
+  wrap.classList.toggle('scrolled', navEl.scrollLeft > 2);
+  wrap.classList.toggle('at-end', max <= 2 || navEl.scrollLeft >= max - 2);
 }
 function go(id) {
   cur = id;
@@ -344,7 +510,7 @@ function cardList(u, f, box) {
       if (my !== token) return;
       const it = list[i];
       const d = document.createElement('div');
-      d.className = 'item';
+      d.className = 'item' + (Array.isArray(f.extras) && f.extras.length ? ' has-extra' : '');
       const head = document.createElement('div');
       head.className = 'item-head';
       const photoUrl = !f.nophoto && it.p ? await purl(it.p) : null;
@@ -362,7 +528,12 @@ function cardList(u, f, box) {
       inp.className = 'card-input';
       inp.placeholder = f.nophoto ? '行動' : '卡名或想法（選填）';
       inp.value = it.n || '';
-      inp.oninput = () => { it.n = inp.value; setv(u.id, f.k, list); maybeRefreshCbd(); };
+      inp.oninput = () => {
+        it.n = inp.value;
+        if (typeof it.original === 'string') it.original = it.n;
+        setv(u.id, f.k, list);
+        maybeRefreshCbd();
+      };
       head.appendChild(inp);
       const del = document.createElement('button');
       del.type = 'button';
@@ -405,7 +576,16 @@ function cardList(u, f, box) {
           star.title = '帶去單元 06';
           star.textContent = '☆';
           star.setAttribute('aria-pressed', it.st ? 'true' : 'false');
-          star.onclick = () => { it.st = !it.st; setv(u.id, f.k, list); draw(); maybeRefreshCbd(); };
+          star.onclick = () => {
+            if (f.oneStar) {
+              const on = !it.st;
+              list.forEach(x => { if (x) x.st = false; });
+              it.st = on;
+            } else it.st = !it.st;
+            setv(u.id, f.k, list);
+            draw();
+            maybeRefreshCbd();
+          };
           tools.appendChild(star);
         }
         tools.appendChild(del);
@@ -422,7 +602,7 @@ function cardList(u, f, box) {
             const b = document.createElement('button');
             b.type = 'button';
             b.className = 'won-btn' + (it[ex.k] ? ' on' : '');
-            b.textContent = ex.label;
+            b.textContent = it[ex.k] ? '✓ 得標' : ex.label;
             b.setAttribute('aria-pressed', it[ex.k] ? 'true' : 'false');
             b.onclick = () => { it[ex.k] = !it[ex.k]; setv(u.id, f.k, list); draw(); };
             wrap.appendChild(b);
@@ -470,8 +650,19 @@ function cardList(u, f, box) {
   draw();
 }
 
+function cbdName(raw) {
+  let name = String(raw || '').replace(/\s+/g, ' ').trim();
+  let prev;
+  do {
+    prev = name;
+    name = name.replace(/\s*[（(][^（()）)]*[）)]\s*$/, '').trim();
+    name = name.replace(/\s*\d+\s*萬\s*$/, '').trim();
+    name = name.replace(/\s*\d+\s*$/, '').trim();
+  } while (name && name !== prev);
+  return name;
+}
 function cbdKey(it) {
-  const name = String(it && it.n || '').replace(/\s+/g, ' ').trim();
+  const name = cbdName(it && it.n);
   if (name) return 'n:' + name;
   if (it && it.p) return 'p:' + it.p;
   return '';
@@ -507,10 +698,11 @@ async function renderCbd() {
     <svg class="tri-svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
       <polygon points="50,1.2 1.2,98.8 98.8,98.8"></polygon>
     </svg>
+    <div class="edges"><div class="edge edge-drive">驅動 →</div><div class="edge edge-show">← 呈現</div></div>
     <div class="zone tri-call" data-zone="calling" style="border-color:#c15a7c;background:#fbf1f5"><h3>尋召命 Calling</h3><div class="src">聯想圖卡（1–3 張）</div><div class="pills">${await pills(calling, '尚未拍下或寫下')}</div>${note ? `<div class="src call-note">${esc(note)}</div>` : ''}</div>
     <div class="zone tri-care" data-zone="caring" style="border-color:#6aa56b;background:#f2f8f2"><h3>展關懷 Caring</h3>${field ? `<div class="care-text">${esc(field)}</div>` : '<div class="src">在下面寫下回應召命之後的關顧</div>'}</div>
-    <div class="zone tri-being" data-zone="being" style="border-color:#d9a441;background:#fdf8ee"><h3>活真我 Being<span class="role">做人</span></h3><div class="src">價值卡首 3 張（02）</div><div class="pills">${await pills(bv.shown)}</div>${cap(bv.more)}<div class="src">This is Me 卡首 3 張（04）${disc ? '・' + esc(disc) : ''}</div><div class="pills">${await pills(bm.shown)}</div>${cap(bm.more)}</div>
-    <div class="zone tri-doing" data-zone="doing" style="border-color:#4f94b8;background:#f1f7fb"><h3>行使命 Doing<span class="role">做事</span></h3><div class="src">職業探索卡首 3 張（03）${code ? '・' + esc(code) : ''}</div><div class="pills">${await pills(dj.shown)}</div>${cap(dj.more)}<div class="src">優勢卡首 3 張（05）</div><div class="pills">${await pills(ds.shown)}</div>${cap(ds.more)}</div>`;
+    <div class="zone tri-being" data-zone="being" style="border-color:#d9a441;background:#fdf8ee"><h3>活真我 Being<span class="role">做人</span></h3><div class="src">價值卡首 3 張（02）</div><div class="pills">${await pills(bv.shown)}</div>${cap(bv.more)}<div class="src">This is Me! 卡首 3 張（04）${disc ? '・' + esc(disc) : ''}</div><div class="pills">${await pills(bm.shown)}</div>${cap(bm.more)}</div>
+    <div class="zone tri-doing" data-zone="doing" style="border-color:#4f94b8;background:#f1f7fb"><h3>行使命 Doing<span class="role">處事</span></h3><div class="src">職業探索卡首 3 張（03）${code ? '・' + esc(code) : ''}</div><div class="pills">${await pills(dj.shown)}</div>${cap(dj.more)}<div class="src">優勢卡首 3 張（05）</div><div class="pills">${await pills(ds.shown)}</div>${cap(ds.more)}</div>`;
   if (my !== cbdToken || !document.body.contains(el)) return;
   el.innerHTML = html;
   bindPillPhotos(el);
@@ -564,9 +756,9 @@ function unit(u) {
         b.classList.toggle('on');
       });
     } else if (f.type === 'johari') {
-      const q = [['open', '公開區', '我選了，也有人送給我'], ['blind', '盲點區', '我沒選，但有人送給我'], ['hidden', '隱藏區', '我選了，但沒有人送'], ['unknown', '未知區・待發展', '還未看見、想發展的']];
+      const q = [['open', 'Open 區', '自己和別人都知道的強項'], ['blind', 'Blind 區', '別人知道而自己不知道的強項'], ['hidden', 'Hidden 區', '自己知道而別人不知道的強項'], ['unknown', 'Unknown 區', '我和別人都未發現的強項']];
       const v = uv(u.id, f.k) || {};
-      box.innerHTML = `<p class="hint">看着相片，把卡名寫進四格。</p><div class="johari">${q.map(x => `<div class="q"><b>${esc(x[1])}${x[0] === 'unknown' ? '<span class="opt">（選做）</span>' : ''}</b><small>${esc(x[2])}</small><textarea data-q="${x[0]}">${esc(v[x[0]])}</textarea></div>`).join('')}</div>`;
+      box.innerHTML = `<p class="hint">看着相片，把卡名寫進 Open、Blind、Hidden 三區；Unknown 區沒有卡。</p><div class="johari">${q.map(x => `<div class="q"><b>${esc(x[1])}</b><small>${esc(x[2])}</small><textarea data-q="${x[0]}">${esc(v[x[0]])}</textarea></div>`).join('')}</div>`;
       box.querySelectorAll('textarea').forEach(t => t.oninput = () => { v[t.dataset.q] = t.value; setv(u.id, f.k, v); });
     } else if (f.type === 'subs') {
       f.parts.forEach(part => {
@@ -631,6 +823,8 @@ menuBtn.onclick = async () => {
         migrateLibraryCards();
         migratePresentCard();
         migratePaperFields();
+        migrateLegacyNotes();
+        migrateRushStar();
         save();
         go('00');
       } catch (e) { alert('匯入失敗，請確認檔案是尋卓護照匯出的備份。'); }
@@ -640,9 +834,33 @@ menuBtn.onclick = async () => {
   if (c === '3') print();
 };
 
+function showUpdate() {
+  const el = document.getElementById('upd');
+  if (el) el.hidden = false;
+}
+const updBtn = document.getElementById('updBtn');
+if (updBtn) updBtn.onclick = () => location.reload();
+if (navEl) {
+  navEl.addEventListener('scroll', navHint, {passive: true});
+  window.addEventListener('resize', navHint);
+}
 if ('serviceWorker' in navigator) {
+  let hadController = !!navigator.serviceWorker.controller;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (!hadController) { hadController = true; return; }
+    showUpdate();
+  });
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register(new URL('sw.js', BASE).href, {scope: new URL('./', BASE).href, updateViaCache: 'none'}).catch(() => {});
+    navigator.serviceWorker.register(new URL('sw.js', BASE).href, {scope: new URL('./', BASE).href, updateViaCache: 'none'}).then(reg => {
+      if (reg.waiting && navigator.serviceWorker.controller) showUpdate();
+      reg.addEventListener('updatefound', () => {
+        const nw = reg.installing;
+        if (!nw) return;
+        nw.addEventListener('statechange', () => {
+          if (nw.state === 'installed' && navigator.serviceWorker.controller) showUpdate();
+        });
+      });
+    }).catch(() => {});
   });
 }
 

@@ -18,8 +18,14 @@
 </head>
 <body>
 <header><h1 id="ttl">尋卓護照</h1><button type="button" id="menuBtn">備份</button></header>
+<div class="update-banner noprint" id="upd" hidden><span>已更新，請重新載入</span><button type="button" id="updBtn">重新載入</button></div>
 <main id="app"><p class="hint">載入中…</p></main>
+<div class="nav-wrap" id="navWrap">
 <nav id="nav"></nav>
+<span class="nav-fade left" aria-hidden="true"></span>
+<span class="nav-fade right" aria-hidden="true"></span>
+<span class="nav-arrow" aria-hidden="true">›</span>
+</div>
 <div class="photoview" id="pv"><img id="pvimg" alt="圖卡相片"></div>
 <input type="file" id="cam" accept="image/*" capture="environment" hidden>
 <input type="file" id="upl" accept="image/*" hidden>
